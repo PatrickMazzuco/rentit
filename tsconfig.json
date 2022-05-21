@@ -5,16 +5,19 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": ".",
-    "declaration": true,
-    "outDir": "./dist",
     "removeComments": true,
     "esModuleInterop": true,
     "moduleResolution": "Node",
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "declaration": true,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "paths": {
+      "@config/*": ["./src/config/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
