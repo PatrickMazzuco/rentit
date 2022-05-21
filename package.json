@@ -4,9 +4,11 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "concurrently \"pnpm watch-compile\" \"pnpm watch-dev\"",
+    "dev": "concurrently  -p none --hide 0 --kill-others \"pnpm watch-compile\" \"pnpm watch-dev\"",
+    "debug": "concurrently -p none --hide 0 --kill-others \"pnpm watch-compile\" \"pnpm watch-debug\"",
     "watch-compile": "swc src -w --out-dir dist",
-    "watch-dev": "nodemon --watch \"dist/**/*\" -e js ./dist/main",
+    "watch-dev": "nodemon --watch \"dist/**/*\" -e js ./dist/main.js",
+    "watch-debug": "nodemon --inspect --watch \"dist/**/*\" -e js ./dist/main.js",
     "build": "swc src -d dist",
     "start": "npm run build && node dist/main",
     "clean": "rm -rf dist",
