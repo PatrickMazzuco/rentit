@@ -1,4 +1,4 @@
-import CreateCategoryRouter from "./use-cases/create-category.router";
+import CreateCategoryRouter from "./use-cases/create-category/create-category.router";
 
 const routes = [CreateCategoryRouter];
 

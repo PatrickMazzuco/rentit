@@ -11,9 +11,11 @@
       "legacyDecorator": true,
       "decoratorMetadata": true
     },
+    "baseUrl": "./dist",
     "paths": {
-      "@config/*": ["./config/*"],
-      "@utils/*": ["./utils/*"]
+      "@src/*": ["*"],
+      "@config/*": ["config/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "module": {

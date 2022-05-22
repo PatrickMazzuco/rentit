@@ -4,12 +4,12 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "concurrently  -p none --hide 0 --kill-others \"pnpm watch-compile\" \"pnpm watch-dev\"",
-    "debug": "concurrently -p none --hide 0 --kill-others \"pnpm watch-compile\" \"pnpm watch-debug\"",
-    "watch-compile": "swc src -w -s --out-dir dist",
-    "watch-dev": "nodemon --watch \"dist/**/*\" -e js ./dist/main.js",
-    "watch-debug": "nodemon --inspect --watch \"dist/**/*\" -e js ./dist/main.js",
+    "dev": "nodemon --ext ts --exec \"npm run run:dev\"",
+    "debug": "nodemon --ext ts --exec \"npm run run:debug\"",
+    "run:dev": "npm run build:dev && node dist/main.js",
+    "run:debug": "npm run build:dev && node --inspect dist/main.js",
     "build": "swc src -d dist",
+    "build:dev": "swc src -s --out-dir dist",
     "start": "npm run build && node dist/main",
     "clean": "rm -rf dist",
     "lint": "eslint --ext .ts src",
@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^3.14.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1"
   },
@@ -29,8 +30,6 @@
     "@types/node": "^17.0.35",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
-    "chokidar": "^3.5.3",
-    "concurrently": "^7.2.0",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -41,6 +40,9 @@
     "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
+    "prisma": "^3.14.0",
+    "ts-node": "^10.8.0",
+    "tsconfig-paths": "^4.0.0",
     "typescript": "^4.6.4"
   }
 }

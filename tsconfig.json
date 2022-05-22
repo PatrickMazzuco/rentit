@@ -7,20 +7,25 @@
     "emitDecoratorMetadata": true,
     "removeComments": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
     "strict": true,
     "skipLibCheck": true,
     "declaration": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "outDir": "./dist",
     "paths": {
-      "@config/*": ["./src/config/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@src/*": ["*"],
+      "@config/*": ["config/*"],
+      "@utils/*": ["utils/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "transpileOnly": true,
+    "transpiler": "ts-node/transpilers/swc",
+    "require": ["tsconfig-paths/register"]
+  }
 }
