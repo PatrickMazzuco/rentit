@@ -62,6 +62,7 @@ module.exports = {
     "no-unused-vars": "off",
     "no-useless-constructor": "off",
     "no-empty-function": "off",
+    "no-shadow": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",

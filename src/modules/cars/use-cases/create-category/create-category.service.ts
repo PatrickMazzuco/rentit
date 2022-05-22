@@ -1,9 +1,16 @@
+import { RepositoryToken } from "@src/shared/container";
+import { inject, injectable } from "tsyringe";
+
 import { CategoryDTO } from "../../dtos/category.dto";
 import { ICategoriesRepository } from "../../repositories/categories-repository.interface";
 import { CreateCategoryDTO } from "./dtos/create-categoty.dto";
 
+@injectable()
 export class CreateCategoryService {
-  constructor(private readonly categoryRepository: ICategoriesRepository) {}
+  constructor(
+    @inject(RepositoryToken.CATEGORIES_REPOSITORY)
+    private readonly categoryRepository: ICategoriesRepository,
+  ) {}
 
   async execute(data: CreateCategoryDTO): Promise<CategoryDTO> {
     const category = await this.categoryRepository.create(data);

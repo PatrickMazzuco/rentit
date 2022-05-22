@@ -1,0 +1,3 @@
+export enum RepositoryToken {
+  CATEGORIES_REPOSITORY = "CATEGORIES_REPOSITORY",
+}
