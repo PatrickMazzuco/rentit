@@ -1,0 +1,16 @@
+services:
+  database:
+    image: postgres
+    container_name: rentit_development
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=rentit_development
+    volumes:
+      - pgdata:/data/postgres
+volumes:
+  pgdata:
+    driver: local

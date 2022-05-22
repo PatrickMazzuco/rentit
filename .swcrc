@@ -12,7 +12,8 @@
       "decoratorMetadata": true
     },
     "paths": {
-      "@config/*": ["./config/*"]
+      "@config/*": ["./config/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
   "module": {

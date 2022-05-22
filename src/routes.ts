@@ -1,7 +1,7 @@
 import { apiPrefix } from "@config/dotenv";
 import express, { Router } from "express";
 
-import CategoryModule from "./modules/categories";
+import CategoryModule from "./modules/cars";
 
 const router: Router = express.Router();
 
