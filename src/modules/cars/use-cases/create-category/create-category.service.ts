@@ -13,6 +13,14 @@ export class CreateCategoryService {
   ) {}
 
   async execute(data: CreateCategoryDTO): Promise<CategoryDTO> {
+    const existingCategory = await this.categoryRepository.findByName(
+      data.name,
+    );
+
+    if (existingCategory) {
+      throw new Error("Category already exists.");
+    }
+
     const category = await this.categoryRepository.create(data);
 
     return category;

@@ -19,4 +19,20 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
 
     return createdCategory;
   }
+
+  async findById(id: string): Promise<CategoryDTO | null> {
+    return this.prisma.category.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async findByName(name: string): Promise<CategoryDTO | null> {
+    return this.prisma.category.findFirst({
+      where: {
+        name,
+      },
+    });
+  }
 }
