@@ -19,10 +19,13 @@
     "paths": {
       "@src/*": ["*"],
       "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@errors/*": ["errors/*"],
       "@utils/*": ["utils/*"]
     }
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "dist"],
   "ts-node": {
     "transpileOnly": true,
     "transpiler": "ts-node/transpilers/swc",

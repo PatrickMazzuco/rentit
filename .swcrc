@@ -11,10 +11,13 @@
       "legacyDecorator": true,
       "decoratorMetadata": true
     },
-    "baseUrl": "./dist",
+    "baseUrl": "./src",
     "paths": {
       "@src/*": ["*"],
       "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@errors/*": ["errors/*"],
       "@utils/*": ["utils/*"]
     }
   },

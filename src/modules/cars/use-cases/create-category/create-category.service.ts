@@ -1,4 +1,5 @@
-import { RepositoryToken } from "@src/shared/container";
+import { RepositoryToken } from "@shared/container";
+import { BadRequestException } from "@src/errors";
 import { inject, injectable } from "tsyringe";
 
 import { CategoryDTO } from "../../dtos/category.dto";
@@ -18,7 +19,7 @@ export class CreateCategoryService {
     );
 
     if (existingCategory) {
-      throw new Error("Category already exists.");
+      throw new BadRequestException("Category already exists");
     }
 
     const category = await this.categoryRepository.create(data);
