@@ -30,5 +30,6 @@
     "transpileOnly": true,
     "transpiler": "ts-node/transpilers/swc",
     "require": ["tsconfig-paths/register"]
-  }
+  },
+  "resolveJsonModule": true
 }
