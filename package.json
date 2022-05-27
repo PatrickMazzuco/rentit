@@ -17,9 +17,6 @@
     "test:all": "npm run test:unit && npm run test:integration",
     "test:unit": "dotenv -e .env.test.local jest .unit.spec.ts",
     "test:integration": "dotenv -e .env.test.local jest .int.spec.ts",
-    "test:all:coverage": "npm run test:unit:coverage && npm run test:integration:coverage",
-    "test:unit:coverage": "dotenv -e .env.test.local jest .unit.spec.ts --coverage",
-    "test:integration:coverage": "dotenv -e .env.test.local jest .int.spec.ts --coverage",
     "migration:run:development": "prisma migrate dev",
     "migration:run:test": "dotenv -e .env.test.local prisma migrate dev"
   },
