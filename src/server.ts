@@ -18,7 +18,5 @@ server.get("status", (req, res) => {
   });
 });
 
-export const startHttpServer = () =>
-  server.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
+export const startHttpServer = (callback?: () => void) =>
+  server.listen(port, callback);
