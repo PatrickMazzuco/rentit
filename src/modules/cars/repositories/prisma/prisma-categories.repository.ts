@@ -35,4 +35,10 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
       },
     });
   }
+
+  async truncate(): Promise<void> {
+    if (process.env.NODE_ENV === "test") {
+      await this.prisma.category.deleteMany({});
+    }
+  }
 }

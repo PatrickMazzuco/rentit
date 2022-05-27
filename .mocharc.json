@@ -1,0 +1,7 @@
+{
+  "diff": true,
+  "extension": ["ts"],
+  "package": "./package.json",
+  "reporter": "spec",
+  "loader": "ts-node/esm"
+}

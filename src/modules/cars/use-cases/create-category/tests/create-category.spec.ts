@@ -1,14 +1,30 @@
+import "reflect-metadata";
+
 import { BadRequestException } from "@src/errors";
 import { ICategoriesRepository } from "@src/modules/cars/repositories/categories-repository.interface";
 import { uuidV4 } from "@src/utils/misc/uuid";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+import chaiSubset from "chai-subset";
+import { describe, it } from "mocha";
+import sinon from "sinon";
 
 import { CreateCategoryService } from "../create-category.service";
 
+chai.use(chaiSubset);
+chai.use(chaiAsPromised);
+const { expect } = chai;
+
 const categoryRepository: ICategoriesRepository = {
-  create: jest.fn(),
-  findById: jest.fn(),
-  findByName: jest.fn(),
+  create: sinon.fake(),
+  findById: sinon.fake(),
+  findByName: sinon.fake(),
+  truncate: sinon.fake(),
 };
+
+afterEach(() => {
+  sinon.restore();
+});
 
 describe("CreateCategory", () => {
   it("should be able to create a new category", async () => {
@@ -20,9 +36,11 @@ describe("CreateCategory", () => {
       updatedAt: new Date(),
     };
 
-    jest
-      .spyOn(categoryRepository, "create")
-      .mockResolvedValueOnce(categoryData);
+    sinon.replace(
+      categoryRepository,
+      "create",
+      sinon.fake.resolves(categoryData),
+    );
 
     const createCategory = new CreateCategoryService(categoryRepository);
 
@@ -33,7 +51,7 @@ describe("CreateCategory", () => {
       description,
     });
 
-    expect(category).toHaveProperty("id");
+    expect(category).to.containSubset(categoryData);
   });
 
   it("should not be able to create a category with duplicated name", async () => {
@@ -45,9 +63,11 @@ describe("CreateCategory", () => {
       updatedAt: new Date(),
     };
 
-    jest
-      .spyOn(categoryRepository, "findByName")
-      .mockResolvedValueOnce(categoryData);
+    sinon.replace(
+      categoryRepository,
+      "findByName",
+      sinon.fake.resolves(categoryData),
+    );
 
     const createCategory = new CreateCategoryService(categoryRepository);
 
@@ -58,6 +78,6 @@ describe("CreateCategory", () => {
         name,
         description,
       }),
-    ).rejects.toThrow(BadRequestException);
+    ).to.eventually.be.rejectedWith(BadRequestException);
   });
 });

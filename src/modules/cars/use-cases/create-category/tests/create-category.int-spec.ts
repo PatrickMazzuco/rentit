@@ -1,16 +1,42 @@
-import { BadRequestException } from "@src/errors";
-import { ICategoriesRepository } from "@src/modules/cars/repositories/categories-repository.interface";
+import "reflect-metadata";
+
+import { startHttpServer } from "@src/server";
 import { uuidV4 } from "@src/utils/misc/uuid";
+import { ClearDatabase } from "@src/utils/tests/clear-database";
+import { axiosHttpClient } from "@src/utils/tests/http-client";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+import chaiSubset from "chai-subset";
+import { Server } from "http";
+import { describe, it, before, after } from "mocha";
+import sinon from "sinon";
+import { container } from "tsyringe";
 
-import { CreateCategoryService } from "../create-category.service";
+chai.use(chaiSubset);
+chai.use(chaiAsPromised);
+const { expect } = chai;
 
-const categoryRepository: ICategoriesRepository = {
-  create: jest.fn(),
-  findById: jest.fn(),
-  findByName: jest.fn(),
-};
+let httpServer: Server;
+let clearDatabase: ClearDatabase;
 
-describe("CreateCategory", () => {
+before(async () => {
+  httpServer = startHttpServer();
+  clearDatabase = container.resolve(ClearDatabase);
+});
+
+beforeEach(async () => {
+  await clearDatabase.execute();
+});
+
+afterEach(() => {
+  sinon.restore();
+});
+
+after(() => {
+  httpServer.close();
+});
+
+describe("POST /categories", () => {
   it("should be able to create a new category", async () => {
     const categoryData = {
       id: uuidV4(),
@@ -20,20 +46,14 @@ describe("CreateCategory", () => {
       updatedAt: new Date(),
     };
 
-    jest
-      .spyOn(categoryRepository, "create")
-      .mockResolvedValueOnce(categoryData);
-
-    const createCategory = new CreateCategoryService(categoryRepository);
-
     const { name, description } = categoryData;
 
-    const category = await createCategory.execute({
+    const createdCategory = await axiosHttpClient.post("/categories", {
       name,
       description,
     });
 
-    expect(category).toHaveProperty("id");
+    expect(createdCategory.data).to.haveOwnProperty("id");
   });
 
   it("should not be able to create a category with duplicated name", async () => {
@@ -45,19 +65,22 @@ describe("CreateCategory", () => {
       updatedAt: new Date(),
     };
 
-    jest
-      .spyOn(categoryRepository, "findByName")
-      .mockResolvedValueOnce(categoryData);
-
-    const createCategory = new CreateCategoryService(categoryRepository);
-
     const { name, description } = categoryData;
 
-    await expect(
-      createCategory.execute({
-        name,
-        description,
-      }),
-    ).rejects.toThrow(BadRequestException);
+    await axiosHttpClient.post("/categories", {
+      name,
+      description,
+    });
+
+    const response = await axiosHttpClient.post("/categories", {
+      name,
+      description,
+    });
+
+    expect(response.status).to.equal(400);
+    expect(response.data).to.have.property(
+      "message",
+      "Category already exists",
+    );
   });
 });

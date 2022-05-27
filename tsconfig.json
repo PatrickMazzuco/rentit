@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "es2020",
+    "target": "ES2017",
+    "module": "commonjs",
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

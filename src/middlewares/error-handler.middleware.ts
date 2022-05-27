@@ -13,6 +13,8 @@ export const errorHandler = (
     });
   }
 
+  console.log(error);
+
   return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
     message: "Internal Server Error",
   });
