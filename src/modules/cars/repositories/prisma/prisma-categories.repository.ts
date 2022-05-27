@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { Category, PrismaClient } from "@prisma/client";
 import { prisma } from "@src/database/prisma";
 
 import { ICategoriesRepository } from "../categories-repository.interface";
-import { CategoryDTO } from "../dtos/category.dto";
 import { CreateCategoryDTO } from "../dtos/create-category.dto";
 
 export class PrismaCategoriesRepository implements ICategoriesRepository {
@@ -12,7 +11,7 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
     this.prisma = prisma;
   }
 
-  async create(data: CreateCategoryDTO): Promise<CategoryDTO> {
+  async create(data: CreateCategoryDTO): Promise<Category> {
     const createdCategory = await this.prisma.category.create({
       data,
     });
@@ -20,7 +19,7 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
     return createdCategory;
   }
 
-  async findById(id: string): Promise<CategoryDTO | null> {
+  async findById(id: string): Promise<Category | null> {
     return this.prisma.category.findUnique({
       where: {
         id,
@@ -28,11 +27,17 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
     });
   }
 
-  async findByName(name: string): Promise<CategoryDTO | null> {
+  async findByName(name: string): Promise<Category | null> {
     return this.prisma.category.findFirst({
       where: {
         name,
       },
     });
+  }
+
+  async truncate(): Promise<void> {
+    if (process.env.NODE_ENV === "test") {
+      await this.prisma.category.deleteMany({});
+    }
   }
 }
