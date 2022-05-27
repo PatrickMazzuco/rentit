@@ -15,8 +15,8 @@
     "lint": "eslint --ext .ts src",
     "lint:fix": "eslint --ext .ts src --fix",
     "test:all": "npm run test:unit && npm run test:integration",
-    "test:unit": "dotenv -e .env.test.local mocha -r ts-node/register src/**/*.spec.ts",
-    "test:integration": "dotenv -e .env.test.local mocha -r ts-node/register src/**/*.int-spec.ts",
+    "test:unit": "dotenv -e .env.test.local nyc mocha -r ts-node/register src/**/*.spec.ts",
+    "test:integration": "dotenv -e .env.test.local nyc mocha -r ts-node/register src/**/*.int-spec.ts",
     "migration:run:development": "prisma migrate dev",
     "migration:run:test": "dotenv -e .env.test.local prisma migrate dev"
   },
@@ -33,6 +33,7 @@
     "tsyringe": "^4.6.0"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.2.189",
     "@types/chai": "^4.3.1",
@@ -58,9 +59,11 @@
     "eslint-plugin-prettier": "^4.0.0",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.16",
+    "nyc": "^15.1.0",
     "prettier": "^2.6.2",
     "prisma": "^3.14.0",
     "sinon": "^14.0.0",
+    "source-map-support": "^0.5.21",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.8.0",
     "tsconfig-paths": "^4.0.0",
