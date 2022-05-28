@@ -1,6 +1,0 @@
-{
-  "events": {
-    "restart": "echo -ne '\\ec'"
-  },
-  "ignore": ["src/routes/*.ts"]
-}

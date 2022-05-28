@@ -1,11 +1,11 @@
+import { Inject, Injectable } from "@nestjs/common";
 import { ICategoriesRepository } from "@src/modules/cars/repositories/categories-repository.interface";
-import { RepositoryToken } from "@src/shared/container";
-import { inject, injectable } from "tsyringe";
+import { RepositoryToken } from "@src/shared/repository-tokens.enum";
 
-@injectable()
+@Injectable()
 export class ClearDatabase {
   constructor(
-    @inject(RepositoryToken.CATEGORIES_REPOSITORY)
+    @Inject(RepositoryToken.CATEGORIES_REPOSITORY)
     private readonly categoriesRepository: ICategoriesRepository,
   ) {}
 

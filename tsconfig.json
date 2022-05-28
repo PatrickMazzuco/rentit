@@ -1,19 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "es2020",
-    "sourceMap": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "removeComments": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "strictPropertyInitialization": false,
-    "strict": true,
-    "skipLibCheck": true,
+    "module": "commonjs",
     "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
     "baseUrl": "./src",
     "outDir": "./dist",
     "paths": {
@@ -24,13 +18,13 @@
       "@middlewares/*": ["middlewares/*"],
       "@errors/*": ["errors/*"],
       "@utils/*": ["utils/*"]
-    }
-  },
-  "exclude": ["node_modules", "dist"],
-  "ts-node": {
-    "transpileOnly": true,
-    "transpiler": "ts-node/transpilers/swc",
-    "require": ["tsconfig-paths/register"]
-  },
-  "resolveJsonModule": true
+    },
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
 }

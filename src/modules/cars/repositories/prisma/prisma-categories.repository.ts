@@ -1,15 +1,13 @@
-import { Category, PrismaClient } from "@prisma/client";
-import { prisma } from "@src/database/prisma";
+import { Injectable } from "@nestjs/common";
+import { Category } from "@prisma/client";
+import { PrismaService } from "@src/database/prisma";
 
 import { ICategoriesRepository } from "../categories-repository.interface";
 import { CreateCategoryDTO } from "../dtos/create-category.dto";
 
+@Injectable()
 export class PrismaCategoriesRepository implements ICategoriesRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = prisma;
-  }
+  constructor(private prisma: PrismaService) {}
 
   async create(data: CreateCategoryDTO): Promise<Category> {
     const createdCategory = await this.prisma.category.create({

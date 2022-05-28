@@ -1,7 +1,11 @@
-import { port, apiPrefix } from "@config/dotenv";
+import { getEnvVariables } from "@config/env";
 import axios from "axios";
 
-export const axiosHttpClient = axios.create({
-  baseURL: `http://localhost:${port}${apiPrefix}`,
-  validateStatus: () => true,
-});
+export const getAxiosHttpClient = () => {
+  const { port, apiPrefix } = getEnvVariables();
+
+  return axios.create({
+    baseURL: `http://localhost:${port}${apiPrefix}`,
+    validateStatus: () => true,
+  });
+};

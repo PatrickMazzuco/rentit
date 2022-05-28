@@ -1,14 +1,15 @@
-import "reflect-metadata";
-import "@shared/container";
-import { port } from "./config/dotenv";
-import { initializeRoutes } from "./config/tsoa";
-import { expressServer, startHttpServer } from "./server";
-import { initializeSwagger } from "./swagger";
+import { NestFactory } from "@nestjs/core";
 
-(async () => {
-  await initializeRoutes();
-  await initializeSwagger(expressServer);
-  startHttpServer(() => {
-    console.log(`Server is running on port ${port}`);
-  });
-})();
+import { AppModule } from "./app.module";
+import { getEnvVariables } from "./config/env";
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  const { port, apiPrefix } = getEnvVariables();
+
+  app.setGlobalPrefix(apiPrefix);
+
+  await app.listen(port || 3030);
+}
+bootstrap();

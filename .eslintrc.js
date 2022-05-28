@@ -1,40 +1,53 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "tsconfig.json",
+    tsconfigRootDir: __dirname,
+    sourceType: "module",
   },
+  plugins: [
+    "@typescript-eslint/eslint-plugin",
+    "eslint-plugin-import-helpers",
+    "prettier",
+  ],
   extends: [
     "airbnb-base",
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "plugin:prettier/recommended",
   ],
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+  root: true,
+  env: {
+    node: true,
+    jest: true,
   },
-  plugins: ["@typescript-eslint", "eslint-plugin-import-helpers", "prettier"],
-  settings: {
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts"],
-    },
-    "import/resolver": {
-      typescript: {
-        alwaysTryTypes: true,
-      },
-    },
-  },
+  ignorePatterns: [".eslintrc.js"],
   rules: {
+    "prettier/prettier": "error",
+    camelcase: "off",
+    "import/no-unresolved": "error",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        selector: "interface",
+        format: ["PascalCase"],
+        custom: {
+          regex: "^I[A-Z]",
+          match: true,
+        },
+      },
+    ],
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
+    "no-shadow": "off",
+    "no-console": "off",
+    "no-useless-constructor": "off",
+    "no-empty-function": "off",
     "lines-between-class-members": [
       "error",
       "always",
       { exceptAfterSingleLine: true },
     ],
-    "prettier/prettier": 2,
-    "import/no-unresolved": "error",
-    "no-console": "off",
-    "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -56,14 +69,6 @@ module.exports = {
         },
       },
     ],
-    "import/no-extraneous-dependencies": "off",
-    "@typescript-eslint/no-namespace": "off",
-    "max-classes-per-file": "off",
-    "no-unused-vars": "off",
-    "no-useless-constructor": "off",
-    "no-empty-function": "off",
-    "no-shadow": "off",
-    "class-methods-use-this": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -72,5 +77,13 @@ module.exports = {
         caughtErrorsIgnorePattern: "^_",
       },
     ],
+    "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "max-classes-per-file": "off",
+  },
+  settings: {
+    "import/resolver": {
+      typescript: {},
+    },
   },
 };
