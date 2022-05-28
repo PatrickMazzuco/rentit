@@ -7,3 +7,9 @@ export const getEnvVariables = () => {
 
   return { port, apiPrefix, nodeEnv };
 };
+
+export const getEnvFilename = (nodeEnv?: string) => {
+  const env = nodeEnv ?? process.env.NODE_ENV ?? "development";
+
+  return `.env.${env}.local`;
+};
