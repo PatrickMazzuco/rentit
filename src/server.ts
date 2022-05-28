@@ -3,20 +3,22 @@ import "express-async-errors";
 import express from "express";
 
 import { errorHandler } from "./middlewares/error-handler.middleware";
-import router from "./routes";
+import { RegisterRoutes } from "./routes/routes";
 
 const server = express();
 
 server.use(express.json());
 
-server.use(apiPrefix, router);
+RegisterRoutes(server);
+
 server.use(errorHandler);
 
-server.get("status", (req, res) => {
+server.get(`${apiPrefix}/status`, (_req, res) => {
   res.json({
     status: "OK",
   });
 });
+export const expressServer: express.Express = server;
 
 export const startHttpServer = (callback?: () => void) =>
   server.listen(port, callback);
