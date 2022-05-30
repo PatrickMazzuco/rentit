@@ -1,9 +1,10 @@
+import { setupGlobalFilters, setupGlobalPipes } from "@config/globals";
+import { CarsModule } from "@modules/cars/cars.module";
+import { CategoryErrorMessage } from "@modules/cars/errors/category-error-messages.enum";
+import { ClearDatabase } from "@modules/database/clear-database";
 import { HttpStatus, INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
-import { CarsModule } from "@src/modules/cars/cars.module";
-import { CategoryErrorMessage } from "@src/modules/cars/errors/category-error-messages.enum";
-import { ClearDatabase } from "@src/modules/database/clear-database";
-import { getCreateCategoryDTO } from "@src/utils/tests/mocks/cars";
+import { getCreateCategoryDTO } from "@utils/tests/mocks/cars";
 import * as request from "supertest";
 
 describe("[POST] /categories", () => {
@@ -20,6 +21,9 @@ describe("[POST] /categories", () => {
 
     app = moduleRef.createNestApplication();
 
+    setupGlobalPipes({ app });
+    setupGlobalFilters({ app });
+
     await app.init();
   });
 
@@ -31,7 +35,7 @@ describe("[POST] /categories", () => {
     await app.close();
   });
 
-  it("should create a new category", async () => {
+  it("should be able to create a new category", async () => {
     const categoryData = getCreateCategoryDTO();
 
     const createdCategoryResponse = await request(app.getHttpServer())

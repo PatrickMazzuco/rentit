@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { FindByIdDTO } from "@src/shared/dtos/find-by-id.dto";
-import { RepositoryToken } from "@src/shared/repository-tokens.enum";
+import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
+import { RepositoryToken } from "@shared/repository-tokens.enum";
 
 import { CategoryDTO } from "../../dtos/category.dto";
 import { CategoryError } from "../../errors/category.errors";

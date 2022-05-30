@@ -1,5 +1,5 @@
+import { PrismaCategoriesRepository } from "@modules/cars/repositories/prisma/prisma-categories.repository";
 import { Provider } from "@nestjs/common";
-import { PrismaCategoriesRepository } from "@src/modules/cars/repositories/prisma/prisma-categories.repository";
 
 import { RepositoryToken } from "../../../shared/repository-tokens.enum";
 

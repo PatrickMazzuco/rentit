@@ -1,8 +1,8 @@
 import { createMock } from "@golevelup/ts-jest";
+import { CategoryDTO } from "@modules/cars/dtos/category.dto";
 import { ICategoriesRepository } from "@modules/cars/repositories/categories-repository.interface";
-import { CategoryDTO } from "@src/modules/cars/dtos/category.dto";
-import { CreateCategoryDTO } from "@src/modules/cars/use-cases/create-category/dtos/create-categoty.dto";
-import { uuidV4 } from "@src/utils/misc/uuid";
+import { CreateCategoryDTO } from "@modules/cars/use-cases/create-category/dtos/create-categoty.dto";
+import { uuidV4 } from "@utils/misc/uuid";
 
 export const MockCategoriesRepository: ICategoriesRepository =
   createMock<ICategoriesRepository>();

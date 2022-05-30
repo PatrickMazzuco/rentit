@@ -11,13 +11,14 @@
     "baseUrl": "./src",
     "outDir": "./dist",
     "paths": {
-      "@src/*": ["*"],
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
       "@middlewares/*": ["middlewares/*"],
       "@errors/*": ["errors/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@adapters/*": ["adapters/*"],
+      "@decorators/*": ["decorators/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

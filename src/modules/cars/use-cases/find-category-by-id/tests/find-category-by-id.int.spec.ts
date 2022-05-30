@@ -1,10 +1,11 @@
+import { setupGlobalFilters, setupGlobalPipes } from "@config/globals";
+import { CarsModule } from "@modules/cars/cars.module";
+import { CategoryErrorMessage } from "@modules/cars/errors/category-error-messages.enum";
+import { ClearDatabase } from "@modules/database/clear-database";
 import { HttpStatus, INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
-import { CarsModule } from "@src/modules/cars/cars.module";
-import { CategoryErrorMessage } from "@src/modules/cars/errors/category-error-messages.enum";
-import { ClearDatabase } from "@src/modules/database/clear-database";
-import { uuidV4 } from "@src/utils/misc/uuid";
-import { getCreateCategoryDTO } from "@src/utils/tests/mocks/cars";
+import { uuidV4 } from "@utils/misc/uuid";
+import { getCreateCategoryDTO } from "@utils/tests/mocks/cars";
 import * as request from "supertest";
 
 describe("[GET] /categories/{id}", () => {
@@ -21,6 +22,9 @@ describe("[GET] /categories/{id}", () => {
 
     app = moduleRef.createNestApplication();
 
+    setupGlobalPipes({ app });
+    setupGlobalFilters({ app });
+
     await app.init();
   });
 
@@ -32,7 +36,7 @@ describe("[GET] /categories/{id}", () => {
     await app.close();
   });
 
-  it("should find an existing category", async () => {
+  it("should be able to find an existing category", async () => {
     const categoryData = getCreateCategoryDTO();
 
     const { body: createdCategory } = await request(app.getHttpServer())

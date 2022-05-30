@@ -1,6 +1,6 @@
+import { ICategoriesRepository } from "@modules/cars/repositories/categories-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
-import { ICategoriesRepository } from "@src/modules/cars/repositories/categories-repository.interface";
-import { RepositoryToken } from "@src/shared/repository-tokens.enum";
+import { RepositoryToken } from "@shared/repository-tokens.enum";
 
 @Injectable()
 export class ClearDatabase {
