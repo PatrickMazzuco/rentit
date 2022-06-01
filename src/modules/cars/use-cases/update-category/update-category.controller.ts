@@ -1,0 +1,50 @@
+import { HttpExceptionDTO } from "@errors/http/http-exception.dto";
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Put,
+} from "@nestjs/common";
+import {
+  ApiBadRequestResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from "@nestjs/swagger";
+import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
+
+import { CategoryDTO } from "../../dtos/category.dto";
+import { UpdateCategoryBodyDTO } from "./dtos/update-category-body.dto";
+import { UpdateCategoryService } from "./update-category.service";
+
+@ApiTags("categories")
+@Controller("categories")
+export class UpdateCategoryController {
+  constructor(private readonly updateCategoryService: UpdateCategoryService) {}
+
+  @Put(":id")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse({
+    description: "Category successfully updated",
+    type: CategoryDTO,
+  })
+  @ApiNotFoundResponse({
+    description: "Category not found",
+    type: HttpExceptionDTO,
+  })
+  @ApiBadRequestResponse({
+    description: "Category with given name already exists",
+    type: HttpExceptionDTO,
+  })
+  async handle(
+    @Param() { id }: FindByIdDTO,
+    @Body() data: UpdateCategoryBodyDTO,
+  ): Promise<void> {
+    return this.updateCategoryService.execute({
+      id,
+      ...data,
+    });
+  }
+}

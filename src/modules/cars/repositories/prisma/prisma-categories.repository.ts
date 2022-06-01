@@ -7,6 +7,7 @@ import { RepositoryPaginationOptions } from "@shared/dtos/repository-pagination-
 import { TargetSortingOrder } from "@shared/enums/sorting-order.enum";
 
 import { ICategoriesRepository } from "../categories-repository.interface";
+import { CategoryDTO } from "../dtos/category.dto";
 import { CreateCategoryDTO } from "../dtos/create-category.dto";
 
 @Injectable()
@@ -62,6 +63,23 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
       data,
       count,
     };
+  }
+
+  async update(data: CategoryDTO): Promise<void> {
+    await this.prisma.category.update({
+      data,
+      where: {
+        id: data.id,
+      },
+    });
+  }
+
+  async delete(data: CategoryDTO): Promise<void> {
+    await this.prisma.category.delete({
+      where: {
+        id: data.id,
+      },
+    });
   }
 
   async truncate(): Promise<void> {

@@ -1,5 +1,5 @@
 import { HttpExceptionDTO } from "@errors/http/http-exception.dto";
-import { Controller, Get, Param } from "@nestjs/common";
+import { Controller, Get, HttpCode, HttpStatus, Param } from "@nestjs/common";
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
 
@@ -14,6 +14,7 @@ export class FindCategoryByIdController {
   ) {}
 
   @Get(":id")
+  @HttpCode(HttpStatus.OK)
   @ApiOkResponse({
     description: "Category found",
     type: CategoryDTO,

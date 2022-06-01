@@ -8,6 +8,8 @@ import { FindCategoryByIdController } from "./use-cases/find-category-by-id/find
 import { FindCategoryByIdService } from "./use-cases/find-category-by-id/find-category-by-id.service";
 import { ListCategoriesController } from "./use-cases/list-categories/list-categories.controller";
 import { ListCategoriesService } from "./use-cases/list-categories/list-categories.service";
+import { UpdateCategoryController } from "./use-cases/update-category/update-category.controller";
+import { UpdateCategoryService } from "./use-cases/update-category/update-category.service";
 
 @Module({
   imports: [DatabaseModule],
@@ -15,12 +17,14 @@ import { ListCategoriesService } from "./use-cases/list-categories/list-categori
     CreateCategoryController,
     FindCategoryByIdController,
     ListCategoriesController,
+    UpdateCategoryController,
   ],
   providers: [
     PrismaService,
     CreateCategoryService,
     FindCategoryByIdService,
     ListCategoriesService,
+    UpdateCategoryService,
   ],
   exports: [],
 })

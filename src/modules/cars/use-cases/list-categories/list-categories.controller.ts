@@ -6,7 +6,14 @@ import {
   PaginationOptions,
 } from "@decorators/pagination/pagination-filters.decorator";
 import { CategoryDTO } from "@modules/cars/dtos/category.dto";
-import { Controller, Get, Query, Req } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Query,
+  Req,
+} from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Request } from "express";
 
@@ -19,6 +26,7 @@ export class ListCategoriesController {
   constructor(private readonly listCategoriesService: ListCategoriesService) {}
 
   @Get()
+  @HttpCode(HttpStatus.OK)
   @ApiPaginatedResponse({
     description: "Categories listed successfully",
     type: CategoryDTO,

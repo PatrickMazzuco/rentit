@@ -1,5 +1,5 @@
 import { HttpExceptionDTO } from "@errors/http/http-exception.dto";
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -17,6 +17,7 @@ export class CreateCategoryController {
   constructor(private readonly createCategoryService: CreateCategoryService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     description: "Category successfully created",
     type: CategoryDTO,

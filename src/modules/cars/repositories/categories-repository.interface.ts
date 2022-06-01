@@ -12,5 +12,7 @@ export interface ICategoriesRepository {
   list(
     options: RepositoryPaginationOptions<CategorySortingFields>,
   ): Promise<ListAndCountDTO<CategoryDTO>>;
+  update(data: CategoryDTO): Promise<void>;
+  delete(data: CategoryDTO): Promise<void>;
   truncate(): Promise<void>;
 }
