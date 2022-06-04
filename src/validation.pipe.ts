@@ -28,6 +28,8 @@ export class ClassValidatorPipe extends ValidationPipe {
   }
 
   exceptionFactory = (validationErrors: ValidationError[]): any => {
+    console.log(validationErrors);
+
     if (validationErrors.length > 0) {
       const errors = validationErrors.map(parseErrors).flat();
 

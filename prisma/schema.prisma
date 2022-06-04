@@ -33,9 +33,9 @@ model Specification {
 model User {
   id             String   @id @default(uuid())
   name           String
-  username       String
+  username       String   @unique
   password       String
-  email          String
+  email          String   @unique
   driversLicense String   @map("drivers_license")
   isAdmin        Boolean  @default(false) @map("is_admin")
   avatar         String

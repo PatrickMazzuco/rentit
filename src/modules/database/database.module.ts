@@ -5,6 +5,7 @@ import { PrismaService } from "./prisma";
 import {
   CategoriesRepositoryProvider,
   SpecificationsRepositoryProvider,
+  UsersRepositoryProvider,
 } from "./providers/repositories.provider";
 
 @Module({
@@ -14,12 +15,14 @@ import {
     ClearDatabase,
     CategoriesRepositoryProvider,
     SpecificationsRepositoryProvider,
+    UsersRepositoryProvider,
   ],
   exports: [
     PrismaService,
     ClearDatabase,
     CategoriesRepositoryProvider,
     SpecificationsRepositoryProvider,
+    UsersRepositoryProvider,
   ],
 })
 export class DatabaseModule {}
