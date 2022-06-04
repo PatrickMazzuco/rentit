@@ -46,7 +46,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install
 
       - name: Run migrations
         run: pnpm migration:run:test
