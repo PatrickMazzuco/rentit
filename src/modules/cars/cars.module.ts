@@ -4,6 +4,8 @@ import { Module } from "@nestjs/common";
 import { DatabaseModule } from "../database/database.module";
 import { CreateCategoryController } from "./use-cases/create-category/create-category.controller";
 import { CreateCategoryService } from "./use-cases/create-category/create-category.service";
+import { CreateSpecificationController } from "./use-cases/create-specification/create-specification.controller";
+import { CreateSpecificationService } from "./use-cases/create-specification/create-specification.service";
 import { DeleteCategoryController } from "./use-cases/delete-category/delete-category.controller";
 import { DeleteCategoryService } from "./use-cases/delete-category/delete-category.service";
 import { FindCategoryByIdController } from "./use-cases/find-category-by-id/find-category-by-id.controller";
@@ -21,6 +23,7 @@ import { UpdateCategoryService } from "./use-cases/update-category/update-catego
     ListCategoriesController,
     UpdateCategoryController,
     DeleteCategoryController,
+    CreateSpecificationController,
   ],
   providers: [
     PrismaService,
@@ -29,6 +32,7 @@ import { UpdateCategoryService } from "./use-cases/update-category/update-catego
     ListCategoriesService,
     UpdateCategoryService,
     DeleteCategoryService,
+    CreateSpecificationService,
   ],
   exports: [],
 })
