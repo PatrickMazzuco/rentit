@@ -14,8 +14,8 @@ model Category {
   id          String   @id @default(uuid())
   name        String
   description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   @@map("categories")
 }
@@ -24,8 +24,23 @@ model Specification {
   id          String   @id @default(uuid())
   name        String
   description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   @@map("specifications")
+}
+
+model User {
+  id             String   @id @default(uuid())
+  name           String
+  username       String
+  password       String
+  email          String
+  driversLicense String   @map("drivers_license")
+  isAdmin        Boolean  @default(false) @map("is_admin")
+  avatar         String
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
 }
