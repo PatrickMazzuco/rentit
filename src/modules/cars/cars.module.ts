@@ -18,6 +18,8 @@ import { ListSpecificationsController } from "./use-cases/list-specifications/li
 import { ListSpecificationsService } from "./use-cases/list-specifications/list-specifications.service";
 import { UpdateCategoryController } from "./use-cases/update-category/update-category.controller";
 import { UpdateCategoryService } from "./use-cases/update-category/update-category.service";
+import { UpdateSpecificationController } from "./use-cases/update-specification/update-specification.controller";
+import { UpdateSpecificationService } from "./use-cases/update-specification/update-specification.service";
 
 @Module({
   imports: [DatabaseModule],
@@ -30,6 +32,7 @@ import { UpdateCategoryService } from "./use-cases/update-category/update-catego
     CreateSpecificationController,
     FindSpecificationByIdController,
     ListSpecificationsController,
+    UpdateSpecificationController,
   ],
   providers: [
     PrismaService,
@@ -41,6 +44,7 @@ import { UpdateCategoryService } from "./use-cases/update-category/update-catego
     CreateSpecificationService,
     FindSpecificationByIdService,
     ListSpecificationsService,
+    UpdateSpecificationService,
   ],
   exports: [],
 })
