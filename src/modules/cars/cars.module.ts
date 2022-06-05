@@ -10,6 +10,8 @@ import { DeleteCategoryController } from "./use-cases/delete-category/delete-cat
 import { DeleteCategoryService } from "./use-cases/delete-category/delete-category.service";
 import { FindCategoryByIdController } from "./use-cases/find-category-by-id/find-category-by-id.controller";
 import { FindCategoryByIdService } from "./use-cases/find-category-by-id/find-category-by-id.service";
+import { FindSpecificationByIdController } from "./use-cases/find-specification-by-id/find-specification-by-id.controller";
+import { FindSpecificationByIdService } from "./use-cases/find-specification-by-id/find-specification-by-id.service";
 import { ListCategoriesController } from "./use-cases/list-categories/list-categories.controller";
 import { ListCategoriesService } from "./use-cases/list-categories/list-categories.service";
 import { UpdateCategoryController } from "./use-cases/update-category/update-category.controller";
@@ -24,6 +26,7 @@ import { UpdateCategoryService } from "./use-cases/update-category/update-catego
     UpdateCategoryController,
     DeleteCategoryController,
     CreateSpecificationController,
+    FindSpecificationByIdController,
   ],
   providers: [
     PrismaService,
@@ -33,6 +36,7 @@ import { UpdateCategoryService } from "./use-cases/update-category/update-catego
     UpdateCategoryService,
     DeleteCategoryService,
     CreateSpecificationService,
+    FindSpecificationByIdService,
   ],
   exports: [],
 })
