@@ -1,10 +1,10 @@
-import { HttpExceptionDTO } from "@errors/http/http-exception.dto";
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 
 import { SpecificationDTO } from "../../dtos/specification.dto";
 import { SpecificationErrorMessage } from "../../errors/specification-error-messages.enum";

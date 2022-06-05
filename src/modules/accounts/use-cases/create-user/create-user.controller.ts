@@ -1,4 +1,3 @@
-import { HttpExceptionDTO } from "@errors/http/http-exception.dto";
 import { UserDTO } from "@modules/accounts/dtos/user.dto";
 import { UserErrorMessage } from "@modules/accounts/errors/users-error-messages.enum";
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
@@ -7,6 +6,7 @@ import {
   ApiCreatedResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 
 import { CreateUserService } from "./create-user.service";
 import { CreateUserDTO } from "./dtos/create-user.dto";

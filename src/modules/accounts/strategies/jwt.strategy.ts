@@ -1,7 +1,7 @@
 import { getJwtConfig } from "@config/jwt";
 import { Inject, Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import { JwtPayload } from "jsonwebtoken";
 import { ExtractJwt, Strategy } from "passport-jwt";
 

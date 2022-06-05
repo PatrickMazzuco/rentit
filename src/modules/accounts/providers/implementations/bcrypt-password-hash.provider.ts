@@ -1,5 +1,5 @@
 import { Provider } from "@nestjs/common";
-import { ProviderToken } from "@shared/provider-token.enum";
+import { ProviderToken } from "@shared/enums/provider-token.enum";
 import * as bcrypt from "bcrypt";
 
 import { IPasswordHash } from "../password-hash.provider";

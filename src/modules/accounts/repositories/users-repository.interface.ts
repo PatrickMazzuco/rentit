@@ -7,5 +7,6 @@ export interface IUsersRepository {
   findById(id: string): Promise<UserDTO | null>;
   findByUsername(username: string): Promise<UserWithPasswordDTO | null>;
   findByEmail(email: string): Promise<UserWithPasswordDTO | null>;
+  update(data: UserDTO): Promise<void>;
   truncate(): Promise<void>;
 }

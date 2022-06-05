@@ -3,8 +3,8 @@ import { IPasswordHash } from "@modules/accounts/providers/password-hash.provide
 import { IUsersRepository } from "@modules/accounts/repositories/users-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { ProviderToken } from "@shared/provider-token.enum";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { ProviderToken } from "@shared/enums/provider-token.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 
 import { AuthenticateUserBodyDTO } from "./dtos/authenticate-user-body.dto";
 import { AuthenticateUserResponseDTO } from "./dtos/authenticate-user-response.dto";

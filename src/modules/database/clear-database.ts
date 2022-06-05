@@ -2,7 +2,7 @@ import { IUsersRepository } from "@modules/accounts/repositories/users-repositor
 import { ICategoriesRepository } from "@modules/cars/repositories/categories-repository.interface";
 import { ISpecificationsRepository } from "@modules/cars/repositories/specifications-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 
 @Injectable()
 export class ClearDatabase {

@@ -3,7 +3,7 @@ import { PrismaCategoriesRepository } from "@modules/cars/repositories/prisma/pr
 import { PrismaSpecificationsRepository } from "@modules/cars/repositories/prisma/prisma-specifications.repository";
 import { Provider } from "@nestjs/common";
 
-import { RepositoryToken } from "../../../shared/repository-tokens.enum";
+import { RepositoryToken } from "../../../shared/enums/repository-tokens.enum";
 
 export const CategoriesRepositoryProvider: Provider = {
   provide: RepositoryToken.CATEGORIES_REPOSITORY,

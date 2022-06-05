@@ -1,10 +1,3 @@
-import { paginate } from "@adapters/pagination";
-import { PaginationAdapterDTO } from "@adapters/pagination/dtos/pagination-adapter.dto";
-import { ApiPaginatedResponse } from "@decorators/pagination/api-paginated-response.decorator";
-import {
-  PaginationFilters,
-  PaginationOptions,
-} from "@decorators/pagination/pagination-filters.decorator";
 import { CategoryDTO } from "@modules/cars/dtos/category.dto";
 import {
   Controller,
@@ -15,6 +8,13 @@ import {
   Req,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { paginate } from "@shared/adapters/pagination";
+import { PaginationAdapterDTO } from "@shared/adapters/pagination/dtos/pagination-adapter.dto";
+import { ApiPaginatedResponse } from "@shared/decorators/pagination/api-paginated-response.decorator";
+import {
+  PaginationFilters,
+  PaginationOptions,
+} from "@shared/decorators/pagination/pagination-filters.decorator";
 import { Request } from "express";
 
 import { ListCategoriesQueryDTO } from "./dtos/list-categories-query.dto";

@@ -2,11 +2,11 @@ import { SpecificationDTO } from "@modules/cars/dtos/specification.dto";
 import { ISpecificationsRepository } from "@modules/cars/repositories/specifications-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
 import { ListAndCountDTO } from "@shared/dtos/list-and-count.dto";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import {
   TargetSortingOrder,
   translateSortingOrder,
 } from "@shared/enums/sorting-order.enum";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
 
 import { ListSpecificationsDTO } from "./dtos/list-specifications.dto";
 

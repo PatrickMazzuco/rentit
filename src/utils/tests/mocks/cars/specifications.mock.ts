@@ -3,7 +3,7 @@ import { SpecificationDTO } from "@modules/cars/dtos/specification.dto";
 import { ISpecificationsRepository } from "@modules/cars/repositories/specifications-repository.interface";
 import { CreateSpecificationDTO } from "@modules/cars/use-cases/create-specification/dtos/create-specification.dto";
 import { Provider } from "@nestjs/common";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import { uuidV4 } from "@utils/misc/uuid";
 
 export const MockSpecificationsRepository: ISpecificationsRepository =

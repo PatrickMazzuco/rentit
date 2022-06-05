@@ -2,11 +2,11 @@ import { CategoryDTO } from "@modules/cars/dtos/category.dto";
 import { ICategoriesRepository } from "@modules/cars/repositories/categories-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
 import { ListAndCountDTO } from "@shared/dtos/list-and-count.dto";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import {
   TargetSortingOrder,
   translateSortingOrder,
 } from "@shared/enums/sorting-order.enum";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
 
 import { ListCategoriesDTO } from "./dtos/list-categories.dto";
 

@@ -1,4 +1,4 @@
-import { PaginationOptions } from "@decorators/pagination/pagination-filters.decorator";
+import { PaginationOptions } from "@shared/decorators/pagination/pagination-filters.decorator";
 
 import { ListSpecificationsQueryDTO } from "./list-specifications-query.dto";
 

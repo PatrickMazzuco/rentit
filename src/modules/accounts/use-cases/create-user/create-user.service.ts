@@ -3,8 +3,8 @@ import { UserError } from "@modules/accounts/errors/users.errors";
 import { IPasswordHash } from "@modules/accounts/providers/password-hash.provider";
 import { IUsersRepository } from "@modules/accounts/repositories/users-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
-import { ProviderToken } from "@shared/provider-token.enum";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { ProviderToken } from "@shared/enums/provider-token.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 
 import { CreateUserDTO } from "./dtos/create-user.dto";
 

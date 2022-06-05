@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PaginationAdapterDTO } from "@adapters/pagination/dtos/pagination-adapter.dto";
 import { applyDecorators, Type } from "@nestjs/common";
 import {
   ApiOkResponse,
   ApiResponseOptions,
   getSchemaPath,
 } from "@nestjs/swagger";
+import { PaginationAdapterDTO } from "@shared/adapters/pagination/dtos/pagination-adapter.dto";
 
 type ResponseOptions<T> = {
   type: T;

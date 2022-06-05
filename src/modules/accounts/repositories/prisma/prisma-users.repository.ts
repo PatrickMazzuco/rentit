@@ -40,6 +40,15 @@ export class PrismaUsersRepository implements IUsersRepository {
     return existingUser;
   }
 
+  async update(data: UserWithPasswordDTO): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: data.id },
+      data: {
+        ...data,
+      },
+    });
+  }
+
   async truncate(): Promise<void> {
     if (process.env.NODE_ENV === "test") {
       await this.prisma.user.deleteMany({});

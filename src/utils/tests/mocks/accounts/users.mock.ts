@@ -5,8 +5,8 @@ import { CreateUserDTO } from "@modules/accounts/repositories/dtos/create-user.d
 import { IUsersRepository } from "@modules/accounts/repositories/users-repository.interface";
 import { Provider } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { ProviderToken } from "@shared/provider-token.enum";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { ProviderToken } from "@shared/enums/provider-token.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import { uuidV4 } from "@utils/misc/uuid";
 
 export const MockUsersRepository: IUsersRepository =

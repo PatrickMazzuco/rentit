@@ -1,7 +1,7 @@
-import { HttpExceptionDTO } from "@errors/http/http-exception.dto";
 import { AuthErrorMessage } from "@modules/accounts/errors/auth-error-messages.enum";
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 
 import { AuthenticateUserService } from "./authenticate-user.service";
 import { AuthenticateUserBodyDTO } from "./dtos/authenticate-user-body.dto";

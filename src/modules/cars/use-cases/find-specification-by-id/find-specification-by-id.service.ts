@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 
 import { SpecificationDTO } from "../../dtos/specification.dto";
 import { SpecificationError } from "../../errors/specification.errors";

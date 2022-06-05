@@ -3,7 +3,7 @@
 import { ValidationPipe, ValidationPipeOptions } from "@nestjs/common";
 import { ValidationError } from "class-validator";
 
-import { ValidationError as CustomValidationErrors } from "./errors/validation/validation.error";
+import { ValidationError as CustomValidationErrors } from "./shared/errors/validation/validation.error";
 
 const parseErrors = (error: ValidationError): any => {
   const parsedError = error.constraints

@@ -1,6 +1,6 @@
-import { PaginationAdapterDTO } from "@adapters/pagination/dtos/pagination-adapter.dto";
 import { INestApplication } from "@nestjs/common";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { PaginationAdapterDTO } from "@shared/adapters/pagination/dtos/pagination-adapter.dto";
 
 import * as packageJson from "../../package.json";
 
