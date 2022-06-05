@@ -21,10 +21,15 @@ export const setupSwagger = ({
     .setTitle("Rentit API")
     .setDescription("Car rental application API")
     .setVersion(apiVersion)
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig, {
     extraModels: [PaginationAdapterDTO],
   });
-  SwaggerModule.setup(`${apiPrefix}/docs`, app, document);
+  SwaggerModule.setup(`${apiPrefix}/docs`, app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 };
