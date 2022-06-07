@@ -1,9 +1,3 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString } from "class-validator";
-
 export class UpdateUserAvatarBodyDTO {
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  avatar: string;
+  avatar: Express.Multer.File;
 }

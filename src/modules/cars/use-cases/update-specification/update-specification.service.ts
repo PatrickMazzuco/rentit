@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 
 import { SpecificationError } from "../../errors/specification.errors";
 import { ISpecificationsRepository } from "../../repositories/specifications-repository.interface";

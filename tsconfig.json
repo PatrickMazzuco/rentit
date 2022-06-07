@@ -14,11 +14,7 @@
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
-      "@middlewares/*": ["middlewares/*"],
-      "@errors/*": ["errors/*"],
-      "@utils/*": ["utils/*"],
-      "@adapters/*": ["adapters/*"],
-      "@decorators/*": ["decorators/*"]
+      "@utils/*": ["utils/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

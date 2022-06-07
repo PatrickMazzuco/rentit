@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { RepositoryToken } from "@shared/repository-tokens.enum";
+import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 
 import { CategoryError } from "../../errors/category.errors";
 import { ICategoriesRepository } from "../../repositories/categories-repository.interface";

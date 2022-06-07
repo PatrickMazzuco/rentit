@@ -1,4 +1,3 @@
-import { HttpExceptionDTO } from "@errors/http/http-exception.dto";
 import {
   Body,
   Controller,
@@ -14,6 +13,7 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
+import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 
 import { CategoryDTO } from "../../dtos/category.dto";
 import { UpdateCategoryBodyDTO } from "./dtos/update-category-body.dto";

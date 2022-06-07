@@ -8,6 +8,7 @@ export default {
   collectCoverage: true,
   collectCoverageFrom: [
     "<rootDir>/src/modules/**/use-cases/**/*.service.ts",
+    "<rootDir>/src/modules/**/services/**/*.service.ts",
     "<rootDir>/src/modules/**/use-cases/**/*.controller.ts",
     "<rootDir>/src/modules/**/errors/**/*.ts",
   ],

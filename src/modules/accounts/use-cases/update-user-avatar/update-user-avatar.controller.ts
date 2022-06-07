@@ -1,25 +1,34 @@
 import { UserDTO } from "@modules/accounts/dtos/user.dto";
-import { Body, Controller, HttpCode, HttpStatus, Put } from "@nestjs/common";
+import {
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Patch,
+  UploadedFile,
+} from "@nestjs/common";
 import { ApiNoContentResponse, ApiTags } from "@nestjs/swagger";
 import { AuthUser } from "@shared/decorators/auth-user.decorator";
+import { FileUploadEndpoint } from "@shared/decorators/file-upload.decorator";
+import { JWTAuthGuard } from "@shared/decorators/jwt-auth-guard.decorator";
 
-import { UpdateUserAvatarBodyDTO } from "./dtos/update-user-avatar-body.dto";
 import { UpdateUserAvatarService } from "./update-user-avatar.service";
 
 @ApiTags("users")
 @Controller("users")
+@JWTAuthGuard()
 export class UpdateUserAvatarController {
   constructor(
     private readonly updateUserAvatarService: UpdateUserAvatarService,
   ) {}
 
-  @Put()
+  @Patch("avatar")
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse({
     description: "User avatar successfully updated",
   })
+  @FileUploadEndpoint("avatar")
   async handle(
-    @Body() { avatar }: UpdateUserAvatarBodyDTO,
+    @UploadedFile() avatar: Express.Multer.File,
     @AuthUser() { id }: UserDTO,
   ): Promise<void> {
     return this.updateUserAvatarService.execute({
