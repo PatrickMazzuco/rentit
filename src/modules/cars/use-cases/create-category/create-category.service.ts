@@ -4,7 +4,7 @@ import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import { CategoryDTO } from "../../dtos/category.dto";
 import { CategoryError } from "../../errors/category.errors";
 import { ICategoriesRepository } from "../../repositories/categories-repository.interface";
-import { CreateCategoryDTO } from "./dtos/create-categoty.dto";
+import { CreateCategoryDTO } from "./dtos/create-category.dto";
 
 @Injectable()
 export class CreateCategoryService {

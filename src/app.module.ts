@@ -4,10 +4,10 @@ import { ConfigModule } from "@nestjs/config";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { getEnvFilename, getEnvVariables } from "./config/env";
+import { AccountsModule } from "./modules/accounts/accounts.module";
 import { CarsModule } from "./modules/cars/cars.module";
 import { DatabaseModule } from "./modules/database/database.module";
-import { AccountsModule } from './modules/accounts/accounts.module';
-import { FilesModule } from './modules/files/files.module';
+import { FilesModule } from "./modules/files/files.module";
 
 @Module({
   imports: [

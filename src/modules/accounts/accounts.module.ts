@@ -33,5 +33,6 @@ import { UpdateUserAvatarService } from "./use-cases/update-user-avatar/update-u
     AuthenticateUserService,
     UpdateUserAvatarService,
   ],
+  exports: [JwtStrategy],
 })
 export class AccountsModule {}

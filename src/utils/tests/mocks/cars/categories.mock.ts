@@ -1,7 +1,7 @@
 import { createMock } from "@golevelup/ts-jest";
 import { CategoryDTO } from "@modules/cars/dtos/category.dto";
 import { ICategoriesRepository } from "@modules/cars/repositories/categories-repository.interface";
-import { CreateCategoryDTO } from "@modules/cars/use-cases/create-category/dtos/create-categoty.dto";
+import { CreateCategoryDTO } from "@modules/cars/use-cases/create-category/dtos/create-category.dto";
 import { Provider } from "@nestjs/common";
 import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import { uuidV4 } from "@utils/misc/uuid";

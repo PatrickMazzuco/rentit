@@ -1,7 +1,10 @@
+import { AccountsModule } from "@modules/accounts/accounts.module";
 import { PrismaService } from "@modules/database/prisma";
 import { Module } from "@nestjs/common";
 
 import { DatabaseModule } from "../database/database.module";
+import { CreateCarController } from "./use-cases/create-car/create-car.controller";
+import { CreateCarService } from "./use-cases/create-car/create-car.service";
 import { CreateCategoryController } from "./use-cases/create-category/create-category.controller";
 import { CreateCategoryService } from "./use-cases/create-category/create-category.service";
 import { CreateSpecificationController } from "./use-cases/create-specification/create-specification.controller";
@@ -24,7 +27,7 @@ import { UpdateSpecificationController } from "./use-cases/update-specification/
 import { UpdateSpecificationService } from "./use-cases/update-specification/update-specification.service";
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, AccountsModule],
   controllers: [
     CreateCategoryController,
     FindCategoryByIdController,
@@ -36,6 +39,7 @@ import { UpdateSpecificationService } from "./use-cases/update-specification/upd
     ListSpecificationsController,
     UpdateSpecificationController,
     DeleteSpecificationController,
+    CreateCarController,
   ],
   providers: [
     PrismaService,
@@ -49,6 +53,7 @@ import { UpdateSpecificationService } from "./use-cases/update-specification/upd
     ListSpecificationsService,
     UpdateSpecificationService,
     DeleteSpecificationService,
+    CreateCarService,
   ],
   exports: [],
 })

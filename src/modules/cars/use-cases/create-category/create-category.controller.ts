@@ -9,7 +9,7 @@ import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 import { CategoryDTO } from "../../dtos/category.dto";
 import { CategoryErrorMessage } from "../../errors/category-error-messages.enum";
 import { CreateCategoryService } from "./create-category.service";
-import { CreateCategoryDTO } from "./dtos/create-categoty.dto";
+import { CreateCategoryDTO } from "./dtos/create-category.dto";
 
 @ApiTags("categories")
 @Controller("categories")
