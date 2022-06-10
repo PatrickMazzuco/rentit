@@ -17,6 +17,8 @@ import { FindCategoryByIdController } from "./use-cases/find-category-by-id/find
 import { FindCategoryByIdService } from "./use-cases/find-category-by-id/find-category-by-id.service";
 import { FindSpecificationByIdController } from "./use-cases/find-specification-by-id/find-specification-by-id.controller";
 import { FindSpecificationByIdService } from "./use-cases/find-specification-by-id/find-specification-by-id.service";
+import { ListCarsController } from "./use-cases/list-cars/list-cars.controller";
+import { ListCarsService } from "./use-cases/list-cars/list-cars.service";
 import { ListCategoriesController } from "./use-cases/list-categories/list-categories.controller";
 import { ListCategoriesService } from "./use-cases/list-categories/list-categories.service";
 import { ListSpecificationsController } from "./use-cases/list-specifications/list-specifications.controller";
@@ -40,6 +42,7 @@ import { UpdateSpecificationService } from "./use-cases/update-specification/upd
     UpdateSpecificationController,
     DeleteSpecificationController,
     CreateCarController,
+    ListCarsController,
   ],
   providers: [
     PrismaService,
@@ -54,6 +57,7 @@ import { UpdateSpecificationService } from "./use-cases/update-specification/upd
     UpdateSpecificationService,
     DeleteSpecificationService,
     CreateCarService,
+    ListCarsService,
   ],
   exports: [],
 })

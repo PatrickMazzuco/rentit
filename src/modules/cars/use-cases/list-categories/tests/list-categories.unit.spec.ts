@@ -20,7 +20,7 @@ describe("ListCategoriesService", () => {
     );
   });
 
-  it("should be able to create a new category", async () => {
+  it("should be able to list categories", async () => {
     const category = getCategoryDTO();
 
     jest.spyOn(MockCategoriesRepository, "list").mockResolvedValue({

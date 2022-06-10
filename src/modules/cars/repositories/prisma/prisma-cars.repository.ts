@@ -1,7 +1,13 @@
+import { CarSortingFields } from "@modules/cars/enums/car-sorting-fields.enum";
 import { PrismaService } from "@modules/database/prisma";
 import { Injectable } from "@nestjs/common";
+import { ListAndCountDTO } from "@shared/dtos/list-and-count.dto";
+import { RepositoryPaginationOptions } from "@shared/dtos/repository-pagination-options.dto";
+import { TargetSortingOrder } from "@shared/enums/sorting-order.enum";
+import { parsePrismaFilters } from "@utils/prisma/parse-filters";
 
 import { ICarsRepository } from "../cars-repository.interface";
+import { CarFiltersDTO } from "../dtos/car-filters.dto";
 import { CarDTO } from "../dtos/car.dto";
 import { CreateCarDTO } from "../dtos/create-car.dto";
 
@@ -33,6 +39,40 @@ export class PrismaCarsRepository implements ICarsRepository {
         licensePlate,
       },
     });
+  }
+
+  async list(
+    {
+      limit,
+      order = TargetSortingOrder.ASC,
+      skip,
+      sort = CarSortingFields.NAME,
+    }: RepositoryPaginationOptions<CarSortingFields>,
+    { available = true, ...filters }: CarFiltersDTO,
+  ): Promise<ListAndCountDTO<CarDTO>> {
+    const parsedFilters = parsePrismaFilters(filters);
+
+    const findOptions = {
+      orderBy: {
+        [sort]: order,
+      },
+      where: {
+        available,
+        ...parsedFilters,
+      },
+    };
+
+    const count = await this.prisma.car.count(findOptions);
+    const data = await this.prisma.car.findMany({
+      ...findOptions,
+      skip,
+      take: limit,
+    });
+
+    return {
+      data,
+      count,
+    };
   }
 
   async truncate(): Promise<void> {
