@@ -6,6 +6,7 @@ import {
   Param,
 } from "@nestjs/common";
 import { ApiNoContentResponse, ApiTags } from "@nestjs/swagger";
+import { AdminJWTAuthGuard } from "@shared/decorators/admin-jwt-auth-guard.decorator";
 import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
 
 import { SpecificationDTO } from "../../dtos/specification.dto";
@@ -13,6 +14,7 @@ import { DeleteSpecificationService } from "./delete-specification.service";
 
 @ApiTags("specifications")
 @Controller("specifications")
+@AdminJWTAuthGuard()
 export class DeleteSpecificationController {
   constructor(
     private readonly deleteSpecificationService: DeleteSpecificationService,

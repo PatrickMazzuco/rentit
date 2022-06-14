@@ -12,6 +12,7 @@ import {
   ApiNotFoundResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { AdminJWTAuthGuard } from "@shared/decorators/admin-jwt-auth-guard.decorator";
 import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
 import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 
@@ -21,6 +22,7 @@ import { UpdateSpecificationService } from "./update-specification.service";
 
 @ApiTags("specifications")
 @Controller("specifications")
+@AdminJWTAuthGuard()
 export class UpdateSpecificationController {
   constructor(
     private readonly updateSpecificationService: UpdateSpecificationService,

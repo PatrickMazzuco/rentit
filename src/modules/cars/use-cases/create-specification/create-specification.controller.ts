@@ -4,6 +4,7 @@ import {
   ApiCreatedResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { AdminJWTAuthGuard } from "@shared/decorators/admin-jwt-auth-guard.decorator";
 import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 
 import { SpecificationDTO } from "../../dtos/specification.dto";
@@ -13,6 +14,7 @@ import { CreateSpecificationDTO } from "./dtos/create-specification.dto";
 
 @ApiTags("specifications")
 @Controller("specifications")
+@AdminJWTAuthGuard()
 export class CreateSpecificationController {
   constructor(
     private readonly createSpecificationService: CreateSpecificationService,
