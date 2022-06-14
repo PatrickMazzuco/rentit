@@ -1,6 +1,7 @@
 import { setupGlobalFilters, setupGlobalPipes } from "@config/globals";
 import { IUsersRepository } from "@modules/accounts/repositories/users-repository.interface";
 import { CarsModule } from "@modules/cars/cars.module";
+import { CarDTO } from "@modules/cars/dtos/car.dto";
 import { CategoryDTO } from "@modules/cars/dtos/category.dto";
 import { ClearDatabase } from "@modules/database/clear-database";
 import { HttpStatus, INestApplication } from "@nestjs/common";
@@ -43,20 +44,9 @@ describe("[GET] /cars", () => {
     await app.close();
   });
 
-  const createCategory = async (): Promise<CategoryDTO> => {
-    const categoryData = getCreateCategoryDTO();
-
-    const { body: createdCategory } = await request(app.getHttpServer())
-      .post("/categories")
-      .send(categoryData)
-      .expect(HttpStatus.CREATED);
-
-    return createdCategory;
-  };
-
-  const createCars = async () => {
+  const setupTestData = async ({ isUserAdmin = true }) => {
+    // Create a user
     const userData = getCreateUserDTO();
-    const category = await createCategory();
 
     const { body: createdUser } = await request(app.getHttpServer())
       .post("/users")
@@ -68,6 +58,13 @@ describe("[GET] /cars", () => {
       isAdmin: true,
     });
 
+    const user = {
+      email: userData.email,
+      username: userData.username,
+      password: userData.password,
+    };
+
+    // Authenticate user
     const { body: authResponse } = await request(app.getHttpServer())
       .post("/auth")
       .send({
@@ -75,6 +72,18 @@ describe("[GET] /cars", () => {
         password: userData.password,
       });
 
+    // Create a category
+    const categoryData = getCreateCategoryDTO();
+
+    const createdCategoryResponse = await request(app.getHttpServer())
+      .post("/categories")
+      .set("Authorization", `Bearer ${authResponse.accessToken}`)
+      .send(categoryData)
+      .expect(HttpStatus.CREATED);
+
+    const category: CategoryDTO = createdCategoryResponse.body;
+
+    // Create cars
     const carData = {
       ...getCreateCarDTO(),
       categoryId: category.id,
@@ -100,11 +109,26 @@ describe("[GET] /cars", () => {
       .send(secondCar)
       .expect(HttpStatus.CREATED);
 
-    return [createdCar, createdSecondCar];
+    const cars: CarDTO[] = [createdCar, createdSecondCar];
+
+    // Remove admin role from user before returning
+    if (!isUserAdmin) {
+      await usersRepository.update({
+        ...createdUser,
+        isAdmin: false,
+      });
+    }
+
+    return {
+      user,
+      category,
+      cars,
+    };
   };
 
   it("should be able to list cars", async () => {
-    const [createdCar] = await createCars();
+    const { cars } = await setupTestData({ isUserAdmin: true });
+    const [createdCar] = cars;
 
     const { body: foundCars } = await request(app.getHttpServer())
       .get("/cars")
@@ -119,7 +143,8 @@ describe("[GET] /cars", () => {
   });
 
   it("should be able to list cars with ordering", async () => {
-    const [_, secondCreatedCar] = await createCars();
+    const { cars } = await setupTestData({ isUserAdmin: true });
+    const [_, secondCreatedCar] = cars;
 
     const { body: foundCars } = await request(app.getHttpServer())
       .get("/cars")
@@ -135,7 +160,8 @@ describe("[GET] /cars", () => {
   });
 
   it("should be able to list cars with filters", async () => {
-    const [_, secondCreatedCar] = await createCars();
+    const { cars } = await setupTestData({ isUserAdmin: true });
+    const [_, secondCreatedCar] = cars;
 
     const { body: foundCars } = await request(app.getHttpServer())
       .get("/cars")

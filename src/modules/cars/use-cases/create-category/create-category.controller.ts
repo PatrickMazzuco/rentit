@@ -4,6 +4,7 @@ import {
   ApiCreatedResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { AdminJWTAuthGuard } from "@shared/decorators/admin-jwt-auth-guard.decorator";
 import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 
 import { CategoryDTO } from "../../dtos/category.dto";
@@ -13,6 +14,7 @@ import { CreateCategoryDTO } from "./dtos/create-category.dto";
 
 @ApiTags("categories")
 @Controller("categories")
+@AdminJWTAuthGuard()
 export class CreateCategoryController {
   constructor(private readonly createCategoryService: CreateCategoryService) {}
 

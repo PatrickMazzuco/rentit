@@ -6,6 +6,7 @@ import {
   Param,
 } from "@nestjs/common";
 import { ApiNoContentResponse, ApiTags } from "@nestjs/swagger";
+import { AdminJWTAuthGuard } from "@shared/decorators/admin-jwt-auth-guard.decorator";
 import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
 
 import { CategoryDTO } from "../../dtos/category.dto";
@@ -13,6 +14,7 @@ import { DeleteCategoryService } from "./delete-category.service";
 
 @ApiTags("categories")
 @Controller("categories")
+@AdminJWTAuthGuard()
 export class DeleteCategoryController {
   constructor(private readonly deleteCategoryService: DeleteCategoryService) {}
 

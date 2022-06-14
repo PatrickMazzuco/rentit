@@ -12,6 +12,7 @@ import {
   ApiNotFoundResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { AdminJWTAuthGuard } from "@shared/decorators/admin-jwt-auth-guard.decorator";
 import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
 import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
 
@@ -21,6 +22,7 @@ import { UpdateCategoryService } from "./update-category.service";
 
 @ApiTags("categories")
 @Controller("categories")
+@AdminJWTAuthGuard()
 export class UpdateCategoryController {
   constructor(private readonly updateCategoryService: UpdateCategoryService) {}
 

@@ -45,18 +45,8 @@ describe("[POST] /cars", () => {
     await app.close();
   });
 
-  const createCategory = async (): Promise<CategoryDTO> => {
-    const categoryData = getCreateCategoryDTO();
-
-    const { body: createdCategory } = await request(app.getHttpServer())
-      .post("/categories")
-      .send(categoryData)
-      .expect(HttpStatus.CREATED);
-
-    return createdCategory;
-  };
-
-  const createUser = async (isAdmin = true) => {
+  const setupTestData = async ({ isUserAdmin = true }) => {
+    // Create a user
     const userData = getCreateUserDTO();
 
     const { body: createdUser } = await request(app.getHttpServer())
@@ -64,39 +54,64 @@ describe("[POST] /cars", () => {
       .send(userData)
       .expect(HttpStatus.CREATED);
 
-    if (isAdmin) {
-      await usersRepository.update({
-        ...createdUser,
-        isAdmin: true,
-      });
-    }
+    await usersRepository.update({
+      ...createdUser,
+      isAdmin: true,
+    });
 
-    return {
+    const user = {
       email: userData.email,
       username: userData.username,
       password: userData.password,
     };
+
+    // Authenticate user
+    const { body: authResponse } = await request(app.getHttpServer())
+      .post("/auth")
+      .send({
+        login: userData.email,
+        password: userData.password,
+      });
+
+    // Create a category
+    const categoryData = getCreateCategoryDTO();
+
+    const createdCategoryResponse = await request(app.getHttpServer())
+      .post("/categories")
+      .set("Authorization", `Bearer ${authResponse.accessToken}`)
+      .send(categoryData)
+      .expect(HttpStatus.CREATED);
+
+    const category: CategoryDTO = createdCategoryResponse.body;
+
+    // Remove admin role from user before returning
+    if (!isUserAdmin) {
+      await usersRepository.update({
+        ...createdUser,
+        isAdmin: false,
+      });
+    }
+
+    return {
+      user,
+      category,
+      accessToken: authResponse.accessToken,
+    };
   };
 
   it("should be able to create a new car", async () => {
-    const category = await createCategory();
+    const { category, accessToken } = await setupTestData({
+      isUserAdmin: true,
+    });
+
     const carData = {
       ...getCreateCarDTO(),
       categoryId: category.id,
     };
 
-    const user = await createUser();
-
-    const { body: authResponse } = await request(app.getHttpServer())
-      .post("/auth")
-      .send({
-        login: user.email,
-        password: user.password,
-      });
-
     const createdCarResponse = await request(app.getHttpServer())
       .post("/cars")
-      .set("Authorization", `Bearer ${authResponse.accessToken}`)
+      .set("Authorization", `Bearer ${accessToken}`)
       .send(carData)
       .expect(HttpStatus.CREATED);
 
@@ -110,30 +125,23 @@ describe("[POST] /cars", () => {
   });
 
   it("should not be able to create a car with duplicated licence plate", async () => {
-    const category = await createCategory();
+    const { category, accessToken } = await setupTestData({
+      isUserAdmin: true,
+    });
     const carData = {
       ...getCreateCarDTO(),
       categoryId: category.id,
     };
 
-    const user = await createUser();
-
-    const { body: authResponse } = await request(app.getHttpServer())
-      .post("/auth")
-      .send({
-        login: user.email,
-        password: user.password,
-      });
-
     await request(app.getHttpServer())
       .post("/cars")
-      .set("Authorization", `Bearer ${authResponse.accessToken}`)
+      .set("Authorization", `Bearer ${accessToken}`)
       .send(carData)
       .expect(HttpStatus.CREATED);
 
     const createdCarResponse = await request(app.getHttpServer())
       .post("/cars")
-      .set("Authorization", `Bearer ${authResponse.accessToken}`)
+      .set("Authorization", `Bearer ${accessToken}`)
       .send(carData)
       .expect(HttpStatus.BAD_REQUEST);
 
@@ -144,19 +152,12 @@ describe("[POST] /cars", () => {
   });
 
   it("should not be able to create a car for an inexistent category", async () => {
+    const { accessToken } = await setupTestData({ isUserAdmin: true });
     const carData = getCreateCarDTO();
-    const user = await createUser();
-
-    const { body: authResponse } = await request(app.getHttpServer())
-      .post("/auth")
-      .send({
-        login: user.email,
-        password: user.password,
-      });
 
     const createdCarResponse = await request(app.getHttpServer())
       .post("/cars")
-      .set("Authorization", `Bearer ${authResponse.accessToken}`)
+      .set("Authorization", `Bearer ${accessToken}`)
       .send(carData)
       .expect(HttpStatus.NOT_FOUND);
 
@@ -167,23 +168,17 @@ describe("[POST] /cars", () => {
   });
 
   it("should not be able to create a car if the user is not an admin", async () => {
-    const category = await createCategory();
+    const { category, accessToken } = await setupTestData({
+      isUserAdmin: false,
+    });
     const carData = {
       ...getCreateCarDTO(),
       categoryId: category.id,
     };
-    const user = await createUser(false);
-
-    const { body: authResponse } = await request(app.getHttpServer())
-      .post("/auth")
-      .send({
-        login: user.email,
-        password: user.password,
-      });
 
     const createdCarResponse = await request(app.getHttpServer())
       .post("/cars")
-      .set("Authorization", `Bearer ${authResponse.accessToken}`)
+      .set("Authorization", `Bearer ${accessToken}`)
       .send(carData)
       .expect(HttpStatus.FORBIDDEN);
 
