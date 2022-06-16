@@ -1,4 +1,5 @@
 import { CategoryDTO } from "./category.dto";
+import { SpecificationDTO } from "./specification.dto";
 
 export class CarDTO {
   id: string;
@@ -11,6 +12,7 @@ export class CarDTO {
   available: boolean;
   categoryId?: string;
   category?: CategoryDTO;
+  specifications?: SpecificationDTO[];
   createdAt: Date;
   updatedAt: Date;
 }

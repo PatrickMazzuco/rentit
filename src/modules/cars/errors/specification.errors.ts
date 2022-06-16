@@ -10,6 +10,15 @@ export namespace SpecificationError {
     }
   }
 
+  export class MultipleNotFound extends NotFoundException {
+    constructor(specificationIds: string[]) {
+      const parsedIds = specificationIds.join(", ");
+
+      const message = `${SpecificationErrorMessage.MULTIPLE_NOT_FOUND} ${parsedIds}`;
+      super(message);
+    }
+  }
+
   export class AlreadyExists extends BadRequestException {
     constructor() {
       const message = SpecificationErrorMessage.ALREADY_EXISTS;

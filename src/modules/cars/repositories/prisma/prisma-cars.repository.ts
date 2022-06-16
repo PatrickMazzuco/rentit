@@ -1,6 +1,7 @@
 import { CarSortingFields } from "@modules/cars/enums/car-sorting-fields.enum";
 import { PrismaService } from "@modules/database/prisma";
 import { Injectable } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
 import { ListAndCountDTO } from "@shared/dtos/list-and-count.dto";
 import { RepositoryPaginationOptions } from "@shared/dtos/repository-pagination-options.dto";
 import { TargetSortingOrder } from "@shared/enums/sorting-order.enum";
@@ -30,6 +31,10 @@ export class PrismaCarsRepository implements ICarsRepository {
       where: {
         id,
       },
+      include: {
+        specifications: true,
+        category: true,
+      },
     });
   }
 
@@ -37,6 +42,10 @@ export class PrismaCarsRepository implements ICarsRepository {
     return this.prisma.car.findUnique({
       where: {
         licensePlate,
+      },
+      include: {
+        specifications: true,
+        category: true,
       },
     });
   }
@@ -73,6 +82,41 @@ export class PrismaCarsRepository implements ICarsRepository {
       data,
       count,
     };
+  }
+
+  async update({
+    id,
+    name,
+    description,
+    brand,
+    licensePlate,
+    available,
+    dailyRate,
+    fineAmount,
+    specifications,
+    category,
+  }: CarDTO): Promise<void> {
+    const dataToUpdate: Prisma.CarUpdateInput = {
+      name,
+      description,
+      brand,
+      licensePlate,
+      available,
+      dailyRate,
+      fineAmount,
+      specifications: {
+        deleteMany: {},
+        create: specifications,
+      },
+    };
+
+    if (category) dataToUpdate.category = { connect: { id: category.id } };
+
+    await this.prisma.car.update({
+      where: { id },
+      data: dataToUpdate,
+      include: { specifications: true },
+    });
   }
 
   async truncate(): Promise<void> {

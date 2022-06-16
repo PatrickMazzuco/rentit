@@ -10,6 +10,7 @@ import {
 } from "class-validator";
 
 import { CategoryDTO } from "../repositories/dtos/category.dto";
+import { SpecificationDTO } from "./specification.dto";
 
 export class CarDTO {
   @IsUUID("4")
@@ -61,6 +62,9 @@ export class CarDTO {
 
   @ApiProperty()
   category?: CategoryDTO;
+
+  @ApiProperty({ isArray: true })
+  specifications?: SpecificationDTO[];
 
   @ApiProperty()
   createdAt: Date;

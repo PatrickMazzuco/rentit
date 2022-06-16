@@ -32,6 +32,16 @@ export class PrismaSpecificationsRepository
     });
   }
 
+  async findByIds(ids: string[]): Promise<SpecificationDTO[]> {
+    return this.prisma.category.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   async findByName(name: string): Promise<Specification | null> {
     return this.prisma.category.findFirst({
       where: {

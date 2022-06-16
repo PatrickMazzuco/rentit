@@ -17,7 +17,7 @@ model Category {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
-  Car Car[]
+  cars Car[]
   @@map("categories")
 }
 
@@ -27,6 +27,8 @@ model Specification {
   description String
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
+
+  cars Car[]
 
   @@map("specifications")
 }
@@ -59,6 +61,7 @@ model Car {
   categoryId String?   @map("category_id")
   category   Category? @relation(fields: [categoryId], references: [id])
 
+  specifications Specification[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

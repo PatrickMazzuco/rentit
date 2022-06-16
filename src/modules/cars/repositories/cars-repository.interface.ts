@@ -14,5 +14,6 @@ export interface ICarsRepository {
     options: RepositoryPaginationOptions<CarSortingFields>,
     filters: CarFiltersDTO,
   ): Promise<ListAndCountDTO<CarDTO>>;
+  update(data: CarDTO): Promise<void>;
   truncate(): Promise<void>;
 }

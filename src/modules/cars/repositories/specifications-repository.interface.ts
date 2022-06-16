@@ -8,6 +8,7 @@ import { CreateSpecificationDTO } from "./dtos/create-specification.dto";
 export interface ISpecificationsRepository {
   create(data: CreateSpecificationDTO): Promise<SpecificationDTO>;
   findById(id: string): Promise<SpecificationDTO | null>;
+  findByIds(ids: string[]): Promise<SpecificationDTO[]>;
   findByName(name: string): Promise<SpecificationDTO | null>;
   list(
     options: RepositoryPaginationOptions<SpecificationSortingFields>,

@@ -30,6 +30,7 @@ export const getCarDTO = (): CarDTO => {
     available: true,
     categoryId: category.id,
     category,
+    specifications: [],
     createdAt: new Date(),
     updatedAt: new Date(),
   };
