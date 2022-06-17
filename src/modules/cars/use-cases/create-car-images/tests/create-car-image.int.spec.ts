@@ -17,7 +17,7 @@ import {
 } from "@utils/tests/mocks/cars";
 import * as request from "supertest";
 
-describe("[PUT] /cars/{id}/specifications", () => {
+describe("[POST] /cars/{id}/images", () => {
   let app: INestApplication;
 
   let clearDatabase: ClearDatabase;

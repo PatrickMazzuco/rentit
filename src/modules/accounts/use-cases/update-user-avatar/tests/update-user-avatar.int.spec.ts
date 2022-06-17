@@ -10,7 +10,7 @@ import * as request from "supertest";
 
 const testAssetsFolder = "../../../../../utils/tests/assets";
 
-describe("[PATCH] /users/avatar", () => {
+describe("[PATCH] /users/{id}/avatar", () => {
   let app: INestApplication;
 
   let clearDatabase: ClearDatabase;
