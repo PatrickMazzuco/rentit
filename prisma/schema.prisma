@@ -48,6 +48,18 @@ model User {
   @@map("users")
 }
 
+model CarImage {
+  id          String   @id @default(uuid())
+  description String
+  image       String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  car   Car    @relation(fields: [carId], references: [id])
+  carId String
+  @@map("car_images")
+}
+
 model Car {
   id           String  @id @default(uuid())
   name         String
@@ -66,5 +78,6 @@ model Car {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  images CarImage[]
   @@map("cars")
 }

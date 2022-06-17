@@ -1,7 +1,8 @@
+import { CarImageDTO } from "./car-image.dto";
 import { CategoryDTO } from "./category.dto";
 import { SpecificationDTO } from "./specification.dto";
 
-export class CarDTO {
+export type CarDTO = {
   id: string;
   name: string;
   description: string;
@@ -13,6 +14,7 @@ export class CarDTO {
   categoryId?: string;
   category?: CategoryDTO;
   specifications?: SpecificationDTO[];
+  images?: CarImageDTO[];
   createdAt: Date;
   updatedAt: Date;
-}
+};

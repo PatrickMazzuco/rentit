@@ -3,7 +3,6 @@ import { AuthErrorMessage } from "@modules/accounts/errors/auth-error-messages.e
 import { IUsersRepository } from "@modules/accounts/repositories/users-repository.interface";
 import { CarsModule } from "@modules/cars/cars.module";
 import { CarDTO } from "@modules/cars/dtos/car.dto";
-import { SpecificationDTO } from "@modules/cars/dtos/specification.dto";
 import { CarErrorMessage } from "@modules/cars/errors/car-error-messages.enum";
 import { ClearDatabase } from "@modules/database/clear-database";
 import { HttpStatus, INestApplication } from "@nestjs/common";
@@ -11,11 +10,11 @@ import { Test } from "@nestjs/testing";
 import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import { uuidV4 } from "@utils/misc/uuid";
 import { getCreateUserDTO } from "@utils/tests/mocks/accounts";
-import {
-  getCreateCarDTO,
-  getCreateSpecificationDTO,
-} from "@utils/tests/mocks/cars";
+import { getCreateCarDTO } from "@utils/tests/mocks/cars";
+import * as path from "node:path";
 import * as request from "supertest";
+
+const testAssetsFolder = "../../../../../utils/tests/assets";
 
 describe("[POST] /cars/{id}/images", () => {
   let app: INestApplication;
@@ -77,17 +76,6 @@ describe("[POST] /cars/{id}/images", () => {
         password: userData.password,
       });
 
-    // Create a specification
-    const specificationData = getCreateSpecificationDTO();
-
-    const createdSpecificationResponse = await request(app.getHttpServer())
-      .post("/specifications")
-      .set("Authorization", `Bearer ${authResponse.accessToken}`)
-      .send(specificationData)
-      .expect(HttpStatus.CREATED);
-
-    const specification: SpecificationDTO = createdSpecificationResponse.body;
-
     // Create cars
     const carData = {
       ...getCreateCarDTO(),
@@ -114,73 +102,88 @@ describe("[POST] /cars/{id}/images", () => {
 
     return {
       user,
-      specification,
       car,
       accessToken: authResponse.accessToken,
     };
   };
 
-  it("should be able to to add a specification to a car", async () => {
-    const { car, specification, accessToken } = await setupTestData({
+  it("should be able to add images to a car", async () => {
+    const { car, accessToken } = await setupTestData({
       isUserAdmin: true,
     });
+
+    const newAvatar = path.resolve(
+      __dirname,
+      testAssetsFolder,
+      `./png-test-image.png`,
+    );
 
     await request(app.getHttpServer())
-      .put(`/cars/${car.id}/specifications`)
+      .post(`/cars/${car.id}/images`)
       .set("Authorization", `Bearer ${accessToken}`)
-      .send({
-        specificationIds: [specification.id],
-      })
-      .expect(HttpStatus.NO_CONTENT);
+      .attach("images", newAvatar)
+      .expect(HttpStatus.CREATED);
   });
 
-  it("should not be able to add an inexistent specification to a car", async () => {
-    const { car, specification, accessToken } = await setupTestData({
+  it("should not be able to add images to an inexistent car", async () => {
+    const { accessToken } = await setupTestData({
       isUserAdmin: true,
     });
 
-    await request(app.getHttpServer())
-      .put(`/cars/${car.id}/specifications`)
-      .set("Authorization", `Bearer ${accessToken}`)
-      .send({
-        specificationIds: [specification.id, uuidV4()],
-      })
-      .expect(HttpStatus.NOT_FOUND);
-  });
+    const newAvatar = path.resolve(
+      __dirname,
+      testAssetsFolder,
+      `./png-test-image.png`,
+    );
 
-  it("should not be able to add a specification to an inexistent car", async () => {
-    const { specification, accessToken } = await setupTestData({
-      isUserAdmin: true,
-    });
-
-    const createdCarResponse = await request(app.getHttpServer())
-      .put(`/cars/${uuidV4()}/specifications`)
+    const createdCarImageResponse = await request(app.getHttpServer())
+      .post(`/cars/${uuidV4()}/images`)
       .set("Authorization", `Bearer ${accessToken}`)
-      .send({
-        specificationIds: [specification.id],
-      })
+      .attach("images", newAvatar)
       .expect(HttpStatus.NOT_FOUND);
 
-    expect(createdCarResponse.body).toHaveProperty(
+    expect(createdCarImageResponse.body).toHaveProperty(
       "message",
       CarErrorMessage.NOT_FOUND,
     );
   });
 
-  it("should not be able to to add a specification to a car if the user is not an admin", async () => {
-    const { car, specification, accessToken } = await setupTestData({
+  it("should be able to add images with invalid extensions to a car", async () => {
+    const { car, accessToken } = await setupTestData({
+      isUserAdmin: true,
+    });
+
+    const newAvatar = path.resolve(
+      __dirname,
+      testAssetsFolder,
+      `./gif-test-image.gif`,
+    );
+
+    await request(app.getHttpServer())
+      .post(`/cars/${car.id}/images`)
+      .set("Authorization", `Bearer ${accessToken}`)
+      .attach("images", newAvatar)
+      .expect(HttpStatus.BAD_REQUEST);
+  });
+
+  it("should be able to add images to a car if the user is not an admin", async () => {
+    const { car, accessToken } = await setupTestData({
       isUserAdmin: false,
     });
 
-    const createdCarResponse = await request(app.getHttpServer())
-      .put(`/cars/${car.id}/specifications`)
+    const newAvatar = path.resolve(
+      __dirname,
+      testAssetsFolder,
+      `./png-test-image.png`,
+    );
+
+    const createdCarImageResponse = await request(app.getHttpServer())
+      .post(`/cars/${car.id}/images`)
       .set("Authorization", `Bearer ${accessToken}`)
-      .send({
-        specificationIds: [specification.id],
-      })
+      .attach("images", newAvatar)
       .expect(HttpStatus.FORBIDDEN);
 
-    expect(createdCarResponse.body).toHaveProperty(
+    expect(createdCarImageResponse.body).toHaveProperty(
       "message",
       AuthErrorMessage.INSUFFICIENT_PERMISSION,
     );

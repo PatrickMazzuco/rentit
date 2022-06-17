@@ -10,6 +10,7 @@ import {
 } from "class-validator";
 
 import { CategoryDTO } from "../repositories/dtos/category.dto";
+import { CarImageDTO } from "./car-image.dto";
 import { SpecificationDTO } from "./specification.dto";
 
 export class CarDTO {
@@ -65,6 +66,9 @@ export class CarDTO {
 
   @ApiProperty({ isArray: true })
   specifications?: SpecificationDTO[];
+
+  @ApiProperty({ isArray: true })
+  images?: CarImageDTO[];
 
   @ApiProperty()
   createdAt: Date;

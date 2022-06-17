@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { ClearDatabase } from "./clear-database";
 import { PrismaService } from "./prisma";
 import {
+  CarImagesRepositoryProvider,
   CarsRepositoryProvider,
   CategoriesRepositoryProvider,
   SpecificationsRepositoryProvider,
@@ -15,6 +16,7 @@ import {
     PrismaService,
     ClearDatabase,
     CarsRepositoryProvider,
+    CarImagesRepositoryProvider,
     CategoriesRepositoryProvider,
     SpecificationsRepositoryProvider,
     UsersRepositoryProvider,
@@ -23,6 +25,7 @@ import {
     PrismaService,
     ClearDatabase,
     CarsRepositoryProvider,
+    CarImagesRepositoryProvider,
     CategoriesRepositoryProvider,
     SpecificationsRepositoryProvider,
     UsersRepositoryProvider,

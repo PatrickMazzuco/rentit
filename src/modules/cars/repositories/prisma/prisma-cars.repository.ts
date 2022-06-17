@@ -21,6 +21,11 @@ export class PrismaCarsRepository implements ICarsRepository {
       data: {
         ...data,
       },
+      include: {
+        specifications: true,
+        category: true,
+        images: true,
+      },
     });
 
     return car;
@@ -34,6 +39,7 @@ export class PrismaCarsRepository implements ICarsRepository {
       include: {
         specifications: true,
         category: true,
+        images: true,
       },
     });
   }
@@ -46,6 +52,7 @@ export class PrismaCarsRepository implements ICarsRepository {
       include: {
         specifications: true,
         category: true,
+        images: true,
       },
     });
   }
@@ -76,6 +83,11 @@ export class PrismaCarsRepository implements ICarsRepository {
       ...findOptions,
       skip,
       take: limit,
+      include: {
+        specifications: true,
+        category: true,
+        images: true,
+      },
     });
 
     return {

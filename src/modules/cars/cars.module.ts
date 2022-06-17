@@ -1,10 +1,13 @@
 import { AccountsModule } from "@modules/accounts/accounts.module";
 import { PrismaService } from "@modules/database/prisma";
+import { FilesModule } from "@modules/files/files.module";
 import { Module } from "@nestjs/common";
 
 import { DatabaseModule } from "../database/database.module";
 import { AddCarSpecificationController } from "./use-cases/add-car-specification/add-car-specification.controller";
 import { AddCarSpecificationService } from "./use-cases/add-car-specification/add-car-specification.service";
+import { CreateCarImagesController } from "./use-cases/create-car-images/create-car-images.controller";
+import { CreateCarImagesService } from "./use-cases/create-car-images/create-car-images.service";
 import { CreateCarController } from "./use-cases/create-car/create-car.controller";
 import { CreateCarService } from "./use-cases/create-car/create-car.service";
 import { CreateCategoryController } from "./use-cases/create-category/create-category.controller";
@@ -31,7 +34,7 @@ import { UpdateSpecificationController } from "./use-cases/update-specification/
 import { UpdateSpecificationService } from "./use-cases/update-specification/update-specification.service";
 
 @Module({
-  imports: [DatabaseModule, AccountsModule],
+  imports: [DatabaseModule, AccountsModule, FilesModule],
   controllers: [
     CreateCategoryController,
     FindCategoryByIdController,
@@ -46,6 +49,7 @@ import { UpdateSpecificationService } from "./use-cases/update-specification/upd
     CreateCarController,
     ListCarsController,
     AddCarSpecificationController,
+    CreateCarImagesController,
   ],
   providers: [
     PrismaService,
@@ -62,6 +66,7 @@ import { UpdateSpecificationService } from "./use-cases/update-specification/upd
     CreateCarService,
     ListCarsService,
     AddCarSpecificationService,
+    CreateCarImagesService,
   ],
   exports: [],
 })
