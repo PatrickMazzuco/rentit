@@ -7,7 +7,11 @@ import {
   Param,
   Put,
 } from "@nestjs/common";
-import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 import { AdminJWTAuthGuard } from "@shared/decorators/admin-jwt-auth-guard.decorator";
 import { FindByIdDTO } from "@shared/dtos/find-by-id.dto";
 import { HttpExceptionDTO } from "@shared/errors/http/http-exception.dto";
@@ -25,7 +29,7 @@ export class AddCarSpecificationController {
 
   @Put(":id/specifications")
   @HttpCode(HttpStatus.NO_CONTENT)
-  @ApiOkResponse({
+  @ApiNoContentResponse({
     description: "Specifications successfully added",
   })
   @ApiNotFoundResponse({
