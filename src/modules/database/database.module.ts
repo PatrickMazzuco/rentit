@@ -6,6 +6,7 @@ import {
   CarImagesRepositoryProvider,
   CarsRepositoryProvider,
   CategoriesRepositoryProvider,
+  RentalsRepositoryProvider,
   SpecificationsRepositoryProvider,
   UsersRepositoryProvider,
 } from "./providers/repositories.provider";
@@ -19,6 +20,7 @@ import {
     CarImagesRepositoryProvider,
     CategoriesRepositoryProvider,
     SpecificationsRepositoryProvider,
+    RentalsRepositoryProvider,
     UsersRepositoryProvider,
   ],
   exports: [
@@ -28,6 +30,7 @@ import {
     CarImagesRepositoryProvider,
     CategoriesRepositoryProvider,
     SpecificationsRepositoryProvider,
+    RentalsRepositoryProvider,
     UsersRepositoryProvider,
   ],
 })

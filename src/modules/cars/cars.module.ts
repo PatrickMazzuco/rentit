@@ -12,6 +12,8 @@ import { CreateCarController } from "./use-cases/create-car/create-car.controlle
 import { CreateCarService } from "./use-cases/create-car/create-car.service";
 import { CreateCategoryController } from "./use-cases/create-category/create-category.controller";
 import { CreateCategoryService } from "./use-cases/create-category/create-category.service";
+import { CreateRentalController } from "./use-cases/create-rental/create-rental.controller";
+import { CreateRentalService } from "./use-cases/create-rental/create-rental.service";
 import { CreateSpecificationController } from "./use-cases/create-specification/create-specification.controller";
 import { CreateSpecificationService } from "./use-cases/create-specification/create-specification.service";
 import { DeleteCategoryController } from "./use-cases/delete-category/delete-category.controller";
@@ -50,6 +52,7 @@ import { UpdateSpecificationService } from "./use-cases/update-specification/upd
     ListCarsController,
     AddCarSpecificationController,
     CreateCarImagesController,
+    CreateRentalController,
   ],
   providers: [
     PrismaService,
@@ -67,6 +70,7 @@ import { UpdateSpecificationService } from "./use-cases/update-specification/upd
     ListCarsService,
     AddCarSpecificationService,
     CreateCarImagesService,
+    CreateRentalService,
   ],
   exports: [],
 })

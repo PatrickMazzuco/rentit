@@ -2,6 +2,7 @@ import { IUsersRepository } from "@modules/accounts/repositories/users-repositor
 import { ICarImagesRepository } from "@modules/cars/repositories/car-images-repository.interface";
 import { ICarsRepository } from "@modules/cars/repositories/cars-repository.interface";
 import { ICategoriesRepository } from "@modules/cars/repositories/categories-repository.interface";
+import { IRentalsRepository } from "@modules/cars/repositories/rentals-repository.interface";
 import { ISpecificationsRepository } from "@modules/cars/repositories/specifications-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
 import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
@@ -17,11 +18,14 @@ export class ClearDatabase {
     private readonly categoriesRepository: ICategoriesRepository,
     @Inject(RepositoryToken.SPECIFICATIONS_REPOSITORY)
     private readonly specificationsRepository: ISpecificationsRepository,
+    @Inject(RepositoryToken.RENTALS_REPOSITORY)
+    private readonly rentalsRepository: IRentalsRepository,
     @Inject(RepositoryToken.USERS_REPOSITORY)
     private readonly usersRepository: IUsersRepository,
   ) {}
 
   async execute(): Promise<void> {
+    await this.rentalsRepository.truncate();
     await this.categoriesRepository.truncate();
     await this.specificationsRepository.truncate();
     await this.carImagesRepository.truncate();

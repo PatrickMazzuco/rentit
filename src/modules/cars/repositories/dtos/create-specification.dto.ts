@@ -1,6 +1,6 @@
 import { SpecificationDTO } from "./specification.dto";
 
-export type CreateSpecificationDTO = Omit<
+export type CreateSpecificationDTO = Pick<
   SpecificationDTO,
-  "id" | "createdAt" | "updatedAt"
+  "name" | "description"
 >;

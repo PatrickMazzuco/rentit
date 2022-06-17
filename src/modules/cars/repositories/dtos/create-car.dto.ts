@@ -1,6 +1,13 @@
 import { CarDTO } from "./car.dto";
 
-export type CreateCarDTO = Omit<
+export type CreateCarDTO = Pick<
   CarDTO,
-  "id" | "category" | "specifications" | "createdAt" | "updatedAt"
+  | "name"
+  | "description"
+  | "licensePlate"
+  | "brand"
+  | "dailyRate"
+  | "fineAmount"
+  | "available"
+  | "categoryId"
 >;

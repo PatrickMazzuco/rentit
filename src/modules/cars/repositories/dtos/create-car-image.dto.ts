@@ -1,6 +1,6 @@
 import { CarImageDTO } from "./car-image.dto";
 
-export type CreateCarImageDTO = Omit<
+export type CreateCarImageDTO = Pick<
   CarImageDTO,
-  "id" | "car" | "createdAt" | "updatedAt"
+  "description" | "image" | "carId"
 >;

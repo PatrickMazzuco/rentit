@@ -1,6 +1,3 @@
 import { CategoryDTO } from "./category.dto";
 
-export type CreateCategoryDTO = Omit<
-  CategoryDTO,
-  "id" | "createdAt" | "updatedAt"
->;
+export type CreateCategoryDTO = Pick<CategoryDTO, "name" | "description">;
