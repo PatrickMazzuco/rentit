@@ -3,8 +3,8 @@ import { DeleteFileService } from "@modules/files/services/delete-file/delete-fi
 import {
   ValidImageFileExtension,
   ValidImageMimeType,
-} from "@modules/files/services/upload-image/dtos/upload-image.dto";
-import { UploadImageService } from "@modules/files/services/upload-image/upload-image.service";
+} from "@modules/files/services/upload-images/dtos/upload-image.dto";
+import { UploadImagesService } from "@modules/files/services/upload-images/upload-images.service";
 import { Inject, Injectable } from "@nestjs/common";
 import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 
@@ -29,7 +29,7 @@ export class UpdateUserAvatarService {
   constructor(
     @Inject(RepositoryToken.USERS_REPOSITORY)
     private readonly userRepository: IUsersRepository,
-    private readonly uploadImageService: UploadImageService,
+    private readonly uploadImageService: UploadImagesService,
     private readonly deleteFileService: DeleteFileService,
   ) {}
 
@@ -41,9 +41,11 @@ export class UpdateUserAvatarService {
       filename: user.avatar,
     });
 
-    const { filePath: avatarFileName } = await this.uploadImageService.execute({
+    const {
+      filePaths: [avatarFileName],
+    } = await this.uploadImageService.execute({
       directory: avatarsDir,
-      image: avatar,
+      images: [avatar],
       validImageMimeTypes: validAvatarMimeTypes,
       validImageFileExtensions: validAvatarFileExtensions,
     });

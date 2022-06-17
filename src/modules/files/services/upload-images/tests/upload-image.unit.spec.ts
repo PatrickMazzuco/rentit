@@ -6,33 +6,36 @@ import {
 } from "@utils/tests/mocks/files";
 import { getImageMock } from "@utils/tests/mocks/files/files.mock";
 
-import { UploadImageService } from "../upload-image.service";
+import { UploadImagesService } from "../upload-images.service";
 
-describe("UploadImageService", () => {
-  let uploadImageService: UploadImageService;
+describe("UploadImagesService", () => {
+  let uploadImagesService: UploadImagesService;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      providers: [UploadImageService, MockFileUploaderProvider],
+      providers: [UploadImagesService, MockFileUploaderProvider],
     }).compile();
 
-    uploadImageService = moduleRef.get<UploadImageService>(UploadImageService);
+    uploadImagesService =
+      moduleRef.get<UploadImagesService>(UploadImagesService);
   });
 
   it("should be able to upload an image", async () => {
     const imageFile = getImageMock();
     const filePath = "test.jpg";
 
-    jest.spyOn(MockFileUploader, "upload").mockResolvedValue(filePath);
+    jest
+      .spyOn(MockFileUploader, "uploadMultiple")
+      .mockResolvedValue([filePath]);
 
-    const createdCategory = await uploadImageService.execute({
+    const createdCategory = await uploadImagesService.execute({
       directory: "dir",
-      image: imageFile,
+      images: [imageFile],
       validImageFileExtensions: ["jpg"],
       validImageMimeTypes: ["image/jpg"],
     });
 
-    expect(createdCategory).toHaveProperty("filePath", filePath);
+    expect(createdCategory).toHaveProperty("filePaths", [filePath]);
   });
 
   it("should not be able to upload an image with invalid extension", async () => {
@@ -41,9 +44,9 @@ describe("UploadImageService", () => {
     imageFile.originalname = "test.gif";
 
     await expect(
-      uploadImageService.execute({
+      uploadImagesService.execute({
         directory: "dir",
-        image: imageFile,
+        images: [imageFile],
         validImageFileExtensions: ["jpg"],
         validImageMimeTypes: ["image/jpg"],
       }),
@@ -56,9 +59,9 @@ describe("UploadImageService", () => {
     imageFile.mimetype = "image/gif";
 
     await expect(
-      uploadImageService.execute({
+      uploadImagesService.execute({
         directory: "dir",
-        image: imageFile,
+        images: [imageFile],
         validImageFileExtensions: ["jpg"],
         validImageMimeTypes: ["image/jpg"],
       }),

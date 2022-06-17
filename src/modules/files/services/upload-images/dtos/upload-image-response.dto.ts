@@ -1,3 +1,3 @@
 export class UploadImageResponseDTO {
-  filePath: string;
+  filePaths: string[];
 }

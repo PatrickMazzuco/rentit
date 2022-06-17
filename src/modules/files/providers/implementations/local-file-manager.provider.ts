@@ -25,6 +25,19 @@ export class LocalFileManager implements IFileManager {
     return fileName;
   }
 
+  async uploadMultiple(
+    dir: string,
+    files: Express.Multer.File[],
+  ): Promise<string[]> {
+    const filenames = await Promise.all(
+      files.map(async (file) => {
+        return this.upload(dir, file);
+      }),
+    );
+
+    return filenames;
+  }
+
   async delete(dir: string, filename: string): Promise<void> {
     const filePath = path.join(this.basePath, dir, filename);
 
@@ -33,6 +46,14 @@ export class LocalFileManager implements IFileManager {
         throw err;
       }
     });
+  }
+
+  async deleteMultiple(dir: string, filenames: string[]): Promise<void> {
+    await Promise.all(
+      filenames.map(async (filename) => {
+        await this.delete(dir, filename);
+      }),
+    );
   }
 }
 

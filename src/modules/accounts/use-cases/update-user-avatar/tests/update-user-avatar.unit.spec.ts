@@ -1,5 +1,5 @@
 import { DeleteFileService } from "@modules/files/services/delete-file/delete-file.service";
-import { UploadImageService } from "@modules/files/services/upload-image/upload-image.service";
+import { UploadImagesService } from "@modules/files/services/upload-images/upload-images.service";
 import { Provider } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import {
@@ -10,13 +10,13 @@ import { getImageMock } from "@utils/tests/mocks/files/files.mock";
 
 import { UpdateUserAvatarService } from "../update-user-avatar.service";
 
-const mockUploadImageService = {
+const mockUploadImagesService = {
   execute: jest.fn(),
 };
 
 const MockUploadImageServiceProvider: Provider = {
-  provide: UploadImageService,
-  useValue: mockUploadImageService,
+  provide: UploadImagesService,
+  useValue: mockUploadImagesService,
 };
 
 const mockDeleteFileService = {
@@ -51,8 +51,8 @@ describe("UpdateUserAvatarService", () => {
     const avatarPath = "test.jpg";
 
     jest
-      .spyOn(mockUploadImageService, "execute")
-      .mockResolvedValue({ filePath: avatarPath });
+      .spyOn(mockUploadImagesService, "execute")
+      .mockResolvedValue({ filePaths: [avatarPath] });
     jest.spyOn(mockDeleteFileService, "execute").mockResolvedValue(null);
     jest.spyOn(MockUsersRepository, "update").mockResolvedValue(null);
 

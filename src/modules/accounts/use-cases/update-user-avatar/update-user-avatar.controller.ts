@@ -8,7 +8,7 @@ import {
 } from "@nestjs/common";
 import { ApiNoContentResponse, ApiTags } from "@nestjs/swagger";
 import { AuthUser } from "@shared/decorators/auth-user.decorator";
-import { FileUploadEndpoint } from "@shared/decorators/file-upload.decorator";
+import { SingleFileUploadEndpoint } from "@shared/decorators/file-upload.decorator";
 import { JWTAuthGuard } from "@shared/decorators/jwt-auth-guard.decorator";
 
 import { UpdateUserAvatarService } from "./update-user-avatar.service";
@@ -26,7 +26,7 @@ export class UpdateUserAvatarController {
   @ApiNoContentResponse({
     description: "User avatar successfully updated",
   })
-  @FileUploadEndpoint("avatar")
+  @SingleFileUploadEndpoint("avatar")
   async handle(
     @UploadedFile() avatar: Express.Multer.File,
     @AuthUser() { id }: UserDTO,
