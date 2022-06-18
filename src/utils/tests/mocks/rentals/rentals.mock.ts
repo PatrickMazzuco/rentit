@@ -1,13 +1,13 @@
 import { createMock } from "@golevelup/ts-jest";
-import { RentalDTO } from "@modules/cars/dtos/rental.dto";
-import { IRentalsRepository } from "@modules/cars/repositories/rentals-repository.interface";
-import { CreateRentalDTO } from "@modules/cars/use-cases/create-rental/dtos/create-rental.dto";
+import { RentalDTO } from "@modules/rentals/dtos/rental.dto";
+import { IRentalsRepository } from "@modules/rentals/repositories/rentals-repository.interface";
+import { CreateRentalDTO } from "@modules/rentals/use-cases/create-rental/dtos/create-rental.dto";
 import { Provider } from "@nestjs/common";
 import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import { uuidV4 } from "@utils/misc/uuid";
 
 import { getUserDTO } from "../accounts";
-import { getCarDTO } from "./cars.mock";
+import { getCarDTO } from "../cars";
 
 export const MockRentalsRepository: IRentalsRepository =
   createMock<IRentalsRepository>();

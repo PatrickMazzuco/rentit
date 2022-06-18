@@ -2,8 +2,8 @@ import { IUsersRepository } from "@modules/accounts/repositories/users-repositor
 import { ICarImagesRepository } from "@modules/cars/repositories/car-images-repository.interface";
 import { ICarsRepository } from "@modules/cars/repositories/cars-repository.interface";
 import { ICategoriesRepository } from "@modules/cars/repositories/categories-repository.interface";
-import { IRentalsRepository } from "@modules/cars/repositories/rentals-repository.interface";
 import { ISpecificationsRepository } from "@modules/cars/repositories/specifications-repository.interface";
+import { IRentalsRepository } from "@modules/rentals/repositories/rentals-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
 import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 

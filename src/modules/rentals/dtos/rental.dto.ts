@@ -2,7 +2,7 @@ import { UserDTO } from "@modules/accounts/dtos/user.dto";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsUUID, IsNotEmpty, IsString } from "class-validator";
 
-import { CarDTO } from "./car.dto";
+import { CarDTO } from "../../cars/dtos/car.dto";
 
 export class RentalDTO {
   @IsUUID("4")

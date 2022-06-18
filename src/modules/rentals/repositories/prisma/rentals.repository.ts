@@ -1,8 +1,8 @@
-import { RentalDTO } from "@modules/cars/dtos/rental.dto";
 import { PrismaService } from "@modules/database/prisma";
 import { Injectable } from "@nestjs/common";
 
 import { CreateRentalDTO } from "../dtos/create-rental.dto";
+import { RentalDTO } from "../dtos/rental.dto";
 import { IRentalsRepository } from "../rentals-repository.interface";
 
 @Injectable()

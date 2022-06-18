@@ -1,8 +1,8 @@
-import { RentalDTO } from "@modules/cars/dtos/rental.dto";
 import { CarError } from "@modules/cars/errors/car.errors";
-import { RentalError } from "@modules/cars/errors/rental-errors";
 import { ICarsRepository } from "@modules/cars/repositories/cars-repository.interface";
-import { IRentalsRepository } from "@modules/cars/repositories/rentals-repository.interface";
+import { RentalDTO } from "@modules/rentals/dtos/rental.dto";
+import { RentalError } from "@modules/rentals/errors/rental-errors";
+import { IRentalsRepository } from "@modules/rentals/repositories/rentals-repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
 import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 

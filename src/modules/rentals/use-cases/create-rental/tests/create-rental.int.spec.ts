@@ -1,16 +1,17 @@
 import { setupGlobalFilters, setupGlobalPipes } from "@config/globals";
 import { IUsersRepository } from "@modules/accounts/repositories/users-repository.interface";
-import { CarsModule } from "@modules/cars/cars.module";
 import { CarDTO } from "@modules/cars/dtos/car.dto";
 import { CarErrorMessage } from "@modules/cars/errors/car-error-messages.enum";
-import { RentalErrorMessage } from "@modules/cars/errors/rental-error-messages.enum";
 import { ClearDatabase } from "@modules/database/clear-database";
+import { RentalErrorMessage } from "@modules/rentals/errors/rental-error-messages.enum";
+import { RentalsModule } from "@modules/rentals/rentals.module";
 import { HttpStatus, INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { RepositoryToken } from "@shared/enums/repository-tokens.enum";
 import { uuidV4 } from "@utils/misc/uuid";
 import { getCreateUserDTO } from "@utils/tests/mocks/accounts";
-import { getCreateCarDTO, getCreateRentalDTO } from "@utils/tests/mocks/cars";
+import { getCreateCarDTO } from "@utils/tests/mocks/cars";
+import { getCreateRentalDTO } from "@utils/tests/mocks/rentals";
 import * as request from "supertest";
 
 describe("[POST] /rentals", () => {
@@ -21,7 +22,7 @@ describe("[POST] /rentals", () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [CarsModule],
+      imports: [RentalsModule],
     }).compile();
 
     clearDatabase = moduleRef.get<ClearDatabase>(ClearDatabase);

@@ -1,13 +1,15 @@
 import { CarError } from "@modules/cars/errors/car.errors";
-import { RentalError } from "@modules/cars/errors/rental-errors";
+import { RentalError } from "@modules/rentals/errors/rental-errors";
 import { Test } from "@nestjs/testing";
 import {
-  getRentalDTO,
   MockCarsRepository,
   MockCarsRepositoryProvider,
+} from "@utils/tests/mocks/cars";
+import {
+  getRentalDTO,
   MockRentalsRepository,
   MockRentalsRepositoryProvider,
-} from "@utils/tests/mocks/cars";
+} from "@utils/tests/mocks/rentals";
 
 import { CreateRentalService } from "../create-rental.service";
 

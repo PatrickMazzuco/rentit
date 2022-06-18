@@ -8,6 +8,7 @@ import { AccountsModule } from "./modules/accounts/accounts.module";
 import { CarsModule } from "./modules/cars/cars.module";
 import { DatabaseModule } from "./modules/database/database.module";
 import { FilesModule } from "./modules/files/files.module";
+import { RentalsModule } from "./modules/rentals/rentals.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { FilesModule } from "./modules/files/files.module";
     DatabaseModule,
     AccountsModule,
     FilesModule,
+    RentalsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

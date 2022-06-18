@@ -1,7 +1,7 @@
 import { UserDTO } from "@modules/accounts/dtos/user.dto";
-import { RentalDTO } from "@modules/cars/dtos/rental.dto";
 import { CategoryErrorMessage } from "@modules/cars/errors/category-error-messages.enum";
-import { RentalErrorMessage } from "@modules/cars/errors/rental-error-messages.enum";
+import { RentalDTO } from "@modules/rentals/dtos/rental.dto";
+import { RentalErrorMessage } from "@modules/rentals/errors/rental-error-messages.enum";
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import {
   ApiBadRequestResponse,
