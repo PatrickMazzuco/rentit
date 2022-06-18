@@ -29,10 +29,12 @@ export class CreateRentalService {
 
     if (!car) throw new CarError.NotFound();
 
-    let existingRental = await this.rentalsRepository.findOneByCarId(carId);
+    let existingRental = await this.rentalsRepository.findOneActiveByCarId(
+      carId,
+    );
     if (existingRental) throw new RentalError.CarAlearyRented();
 
-    existingRental = await this.rentalsRepository.findOneByUserId(userId);
+    existingRental = await this.rentalsRepository.findOneActiveByUserId(userId);
     if (existingRental) throw new RentalError.UserAlreadyRenting();
 
     const currentDate = new Date();

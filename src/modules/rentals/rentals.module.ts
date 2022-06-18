@@ -5,10 +5,12 @@ import { Module } from "@nestjs/common";
 
 import { CreateRentalController } from "./use-cases/create-rental/create-rental.controller";
 import { CreateRentalService } from "./use-cases/create-rental/create-rental.service";
+import { ReturnRentedCarController } from "./use-cases/return-rented-car/return-rented-car.controller";
+import { ReturnRentedCarService } from "./use-cases/return-rented-car/return-rented-car.service";
 
 @Module({
   imports: [DatabaseModule, AccountsModule, CarsModule],
-  controllers: [CreateRentalController],
-  providers: [CreateRentalService],
+  controllers: [CreateRentalController, ReturnRentedCarController],
+  providers: [CreateRentalService, ReturnRentedCarService],
 })
 export class RentalsModule {}

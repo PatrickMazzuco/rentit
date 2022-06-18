@@ -1,5 +1,6 @@
 import { PrismaService } from "@modules/database/prisma";
 import { Injectable } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
 
 import { CreateRentalDTO } from "../dtos/create-rental.dto";
 import { RentalDTO } from "../dtos/rental.dto";
@@ -39,10 +40,11 @@ export class PrismaRentalsRepository implements IRentalsRepository {
     return rental;
   }
 
-  async findOneByCarId(carId: string): Promise<RentalDTO> {
+  async findOneActiveByCarId(carId: string): Promise<RentalDTO> {
     const rental = await this.prisma.rental.findFirst({
       where: {
         carId,
+        endDate: null,
       },
       include: {
         car: true,
@@ -55,10 +57,11 @@ export class PrismaRentalsRepository implements IRentalsRepository {
     return rental;
   }
 
-  async findOneByUserId(userId: string): Promise<RentalDTO> {
+  async findOneActiveByUserId(userId: string): Promise<RentalDTO> {
     const rental = await this.prisma.rental.findFirst({
       where: {
         userId,
+        endDate: null,
       },
       include: {
         car: true,
@@ -69,6 +72,48 @@ export class PrismaRentalsRepository implements IRentalsRepository {
     if (rental) delete rental.user.password;
 
     return rental;
+  }
+
+  async update({
+    id,
+    startDate,
+    endDate,
+    expectedReturnDate,
+    total,
+    carId,
+    userId,
+  }: RentalDTO): Promise<void> {
+    const dataToUpdate: Prisma.RentalUpdateInput = {
+      startDate,
+      endDate,
+      expectedReturnDate,
+      total,
+      car: {
+        connect: {
+          id: carId,
+        },
+      },
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+    };
+
+    await this.prisma.rental.update({
+      where: {
+        id,
+      },
+      data: dataToUpdate,
+    });
+  }
+
+  async delete(data: RentalDTO): Promise<void> {
+    await this.prisma.rental.delete({
+      where: {
+        id: data.id,
+      },
+    });
   }
 
   async truncate(): Promise<void> {

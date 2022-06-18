@@ -1,8 +1,15 @@
-import { BadRequestException } from "@nestjs/common";
+import { BadRequestException, NotFoundException } from "@nestjs/common";
 
 import { RentalErrorMessage } from "./rental-error-messages.enum";
 
 export namespace RentalError {
+  export class NotFound extends NotFoundException {
+    constructor() {
+      const message = RentalErrorMessage.NOT_FOUND;
+      super(message);
+    }
+  }
+
   export class CarAlearyRented extends BadRequestException {
     constructor() {
       const message = RentalErrorMessage.CAR_ALREADY_RENTED;
@@ -24,6 +31,13 @@ export namespace RentalError {
       if (durationisHorus)
         message = `${message}. Minimun duration: ${durationisHorus} hours`;
 
+      super(message);
+    }
+  }
+
+  export class AlreadyReturned extends BadRequestException {
+    constructor() {
+      const message = RentalErrorMessage.RENTAL_ALREADY_RETURNED;
       super(message);
     }
   }

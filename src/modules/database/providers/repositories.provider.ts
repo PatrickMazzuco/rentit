@@ -3,7 +3,7 @@ import { PrismaCarImagesRepository } from "@modules/cars/repositories/prisma/pri
 import { PrismaCarsRepository } from "@modules/cars/repositories/prisma/prisma-cars.repository";
 import { PrismaCategoriesRepository } from "@modules/cars/repositories/prisma/prisma-categories.repository";
 import { PrismaSpecificationsRepository } from "@modules/cars/repositories/prisma/prisma-specifications.repository";
-import { PrismaRentalsRepository } from "@modules/rentals/repositories/prisma/rentals.repository";
+import { PrismaRentalsRepository } from "@modules/rentals/repositories/prisma/prisma-rentals.repository";
 import { Provider } from "@nestjs/common";
 
 import { RepositoryToken } from "../../../shared/enums/repository-tokens.enum";

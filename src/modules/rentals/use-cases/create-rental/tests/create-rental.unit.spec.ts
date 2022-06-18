@@ -34,9 +34,11 @@ describe("CreateRentalService", () => {
 
     jest.spyOn(MockCarsRepository, "findById").mockResolvedValue(rental.car);
 
-    jest.spyOn(MockRentalsRepository, "findOneByCarId").mockResolvedValue(null);
     jest
-      .spyOn(MockRentalsRepository, "findOneByUserId")
+      .spyOn(MockRentalsRepository, "findOneActiveByCarId")
+      .mockResolvedValue(null);
+    jest
+      .spyOn(MockRentalsRepository, "findOneActiveByUserId")
       .mockResolvedValue(null);
 
     jest.spyOn(MockRentalsRepository, "create").mockResolvedValue(rental);
@@ -69,9 +71,11 @@ describe("CreateRentalService", () => {
 
     jest.spyOn(MockCarsRepository, "findById").mockResolvedValue(rental.car);
 
-    jest.spyOn(MockRentalsRepository, "findOneByCarId").mockResolvedValue(null);
     jest
-      .spyOn(MockRentalsRepository, "findOneByUserId")
+      .spyOn(MockRentalsRepository, "findOneActiveByCarId")
+      .mockResolvedValue(null);
+    jest
+      .spyOn(MockRentalsRepository, "findOneActiveByUserId")
       .mockResolvedValue(null);
 
     await expect(
@@ -89,7 +93,7 @@ describe("CreateRentalService", () => {
     jest.spyOn(MockCarsRepository, "findById").mockResolvedValue(rental.car);
 
     jest
-      .spyOn(MockRentalsRepository, "findOneByCarId")
+      .spyOn(MockRentalsRepository, "findOneActiveByCarId")
       .mockResolvedValue(rental);
 
     await expect(
@@ -106,9 +110,11 @@ describe("CreateRentalService", () => {
 
     jest.spyOn(MockCarsRepository, "findById").mockResolvedValue(rental.car);
 
-    jest.spyOn(MockRentalsRepository, "findOneByCarId").mockResolvedValue(null);
     jest
-      .spyOn(MockRentalsRepository, "findOneByUserId")
+      .spyOn(MockRentalsRepository, "findOneActiveByCarId")
+      .mockResolvedValue(null);
+    jest
+      .spyOn(MockRentalsRepository, "findOneActiveByUserId")
       .mockResolvedValue(rental);
 
     await expect(
