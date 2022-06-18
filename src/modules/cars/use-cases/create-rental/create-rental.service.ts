@@ -53,6 +53,8 @@ export class CreateRentalService {
       startDate: new Date(),
     });
 
+    await this.carsRepository.update({ ...car, available: false });
+
     return rental;
   }
 }
