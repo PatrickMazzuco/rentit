@@ -1,8 +1,13 @@
 import { PrismaService } from "@modules/database/prisma";
+import { RentalSortingFields } from "@modules/rentals/enums/rental-sorting-fields.enum";
 import { Injectable } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
+import { ListAndCountDTO } from "@shared/dtos/list-and-count.dto";
+import { RepositoryPaginationOptions } from "@shared/dtos/repository-pagination-options.dto";
+import { TargetSortingOrder } from "@shared/enums/sorting-order.enum";
 
 import { CreateRentalDTO } from "../dtos/create-rental.dto";
+import { RentalFiltersDTO } from "../dtos/rental-filters.dto";
 import { RentalDTO } from "../dtos/rental.dto";
 import { IRentalsRepository } from "../rentals-repository.interface";
 
@@ -72,6 +77,41 @@ export class PrismaRentalsRepository implements IRentalsRepository {
     if (rental) delete rental.user.password;
 
     return rental;
+  }
+
+  async list(
+    {
+      limit,
+      order = TargetSortingOrder.DESC,
+      skip,
+      sort = RentalSortingFields.CREATED_AT,
+    }: RepositoryPaginationOptions<RentalSortingFields>,
+    filters: RentalFiltersDTO,
+  ): Promise<ListAndCountDTO<RentalDTO>> {
+    const findOptions = {
+      orderBy: {
+        [sort]: order,
+      },
+      where: {
+        ...filters,
+      },
+    };
+
+    const count = await this.prisma.rental.count(findOptions);
+    const data = await this.prisma.rental.findMany({
+      ...findOptions,
+      skip,
+      take: limit,
+      include: {
+        car: true,
+        user: true,
+      },
+    });
+
+    return {
+      data,
+      count,
+    };
   }
 
   async update({
